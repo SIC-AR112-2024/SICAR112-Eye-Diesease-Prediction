@@ -3,7 +3,7 @@ import os
 # Function to rename multiple files
 def main():
    
-    folder = r"C:\Users\swaagat\Downloads\SICAR112-Eye-Diesease-Prediction\dataset\diabetic_retinopathy"
+    folder = r".\dataset\diabetic_retinopathy"
     i=0
     for count, filename in enumerate(os.listdir(folder)):
         dst = f"{count}.jpg"
