@@ -32,6 +32,7 @@ def dataset_and_confusion_matrix_page():
 
 def classical_models_page():
     st.title("Classical Models")
+    st.subheader("Results")
     st.write("Firstly, we tried to analyse the retinal fundus images using a few models. These include the PyTorch pretrained resnet18, resnet34 and resnet50 models, our own customised resnet18 model, a Convolutional Neural Network model that we built, as well as a GoogLeNet model. We ran the models through the dataset and obtained the following results.")
     
     # Load image from URL
@@ -45,7 +46,12 @@ def classical_models_page():
     else:
         st.error(f"Failed to load image. Status code: {response.status_code}")  # Display an error message
     
+    st.subheader("Identifying the diseases")
     
+    st.write("From the accuracy results, we can see that the resnet50, followed by the resnet34 and finally the resnet18 models were able to identify the retinal fundus images most accurately. However, we also learnt by research that by combining models together, we would be able to generate more accurate predictions. Hence, we experimeted with two different ensemble model architectures, one by combining the resnet34 and the resnet18 models only, and the other by combining the abovementioned two models along with our custom resnet18 model. As seen from the accuracy diagram above, these two ensemble models performed exceptionally well, with the former outperforming the resnet18 model and the latter outperforming the resnet34 model in all diseases. This latter model, named ResNet-AR112, is used along with resnet50 and resnet34 in our prediction model framework below.")
+
+    st.subheader("Data Analysis")
+    st.write("The following are the confusion matrix diagrams attached for each of the models utilised in the prediction framework.")
     # Load image from URL
     url1 = "https://raw.githubusercontent.com/SIC-AR112-2024/SICAR112-Eye-Disease-Prediction/main/Confusion%20Matrix%20Accuracy%20Guarantee/ResNet_AR112%20Metric.png"
     response = requests.get(url1)
@@ -79,6 +85,8 @@ def classical_models_page():
     else:
         st.error(f"Failed to load image. Status code: {response.status_code}")  # Display an error message
 
+    st.write("As seen, all the models achieved comparative high levels of accuracy at diagnosing each of the diseases. However, both the resnet50 and the resnet34 were relatively weaker at accurately diagnosing images of diabetic retinopathy. We believe that this is the case due to the wider range of symptoms for diabetic retinopathy, causing it to have a lack of significant tell tale signs for the model to identify. However, the ensemble model performed better in this aspect, which we believe could be due to the fact-checking mechanisms of combining the outputs of the three models together with appropriate weighting.")
+    
 def zero_shot_model_page():
     st.title("0 - shot Model Page")
     st.write("This is the contact page.")
@@ -92,7 +100,7 @@ def codebooks_page():
     st.write("This is the contact page.")
     
 def acknowledgements_and_photos_page():
-    st.title("Chain of thought few shot Model Page")
+    st.title("Last words")
     st.write("This is the contact page.")
 
 # Create a dictionary of subpages
