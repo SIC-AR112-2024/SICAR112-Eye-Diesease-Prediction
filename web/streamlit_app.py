@@ -1,8 +1,13 @@
 import streamlit as st
-#hilo
+import requests
+from PIL import Image
+import requests
+from io import BytesIO
+
+
 st.title("SIC AR112 - Identification of Eye Disease using retinal fundus images")
 # Load image from URL
-url = "https://raw.githubusercontent.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/main/Confusion%20Matrix%20Accuracy%20Guarantee/Guarantee.png"
+url = "https://raw.githubusercontent.com/SIC-AR112-2024/SICAR112-Eye-Disease-Prediction/main/Confusion%20Matrix%20Accuracy%20Guarantee/Guarantee.png"
 response = requests.get(url)
 # Check if the request was successful
 if response.status_code == 200:
