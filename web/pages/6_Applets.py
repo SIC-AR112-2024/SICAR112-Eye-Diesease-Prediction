@@ -18,6 +18,41 @@ def load_labels(label_file):
 
 paths = ["models/resnet50.pth", "models/resnet34.pth", "models/ResNet-AR112.pth"]
 
+class EnsembleModel(nn.Module):
+    def __init__(self, models, class_weights=None):
+        super(EnsembleModel, self).__init__()
+        self.models = nn.ModuleList(models)
+
+        # Ensure that class_weights is a list of tensors, one for each model
+        if class_weights is not None:
+            assert len(class_weights) == len(models), "Number of weight sets must match number of models"
+            self.class_weights = [torch.tensor(w, dtype=torch.float32) for w in class_weights]
+        else:
+            # If no class-specific weights are provided, use equal weights (i.e., no change)
+            num_classes = models[0].fc.out_features  # Assuming all models have the same number of classes
+            self.class_weights = [torch.ones(num_classes, dtype=torch.float32) for _ in models]
+
+    def forward(self, x):
+        weighted_outputs = []
+        for i, model in enumerate(self.models):
+            output = model(x)
+            weight = self.class_weights[i].to(output.device)  # Ensure weights are on the correct device
+            weighted_output = output * weight  # Apply class-specific weights to the model's output
+            weighted_outputs.append(weighted_output)
+
+        # Stack the weighted outputs and average them across the models
+        stacked_outputs = torch.stack(weighted_outputs)
+        final_output = torch.mean(stacked_outputs, dim=0)
+        return final_output
+
+# Example usage:
+# Assuming you have 4 classes and 3 models
+# Example class-specific weights for each model:
+class_weights_model1 = [0.9241706161,	0.8933649289,	0.8672985782,	0.8317535545]
+class_weights_model2 = [0.9573459716,	0.9928909953,	0.9194312796,	0.9265402844]
+class_weights_model5 = [0.8744075829,	0.86492891,	0.691943128,	0.7772511848]
+
+
 # Load the pre-trained ResNet model
 def load_model1(MODEL_PATH):
     model = models.resnet50()
@@ -33,6 +68,7 @@ def load_model2(MODEL_PATH):
     return model
 
 def load_model3(MODEL_PATH):
+    model = EnsembleModel()
     model = torch.load(MODEL_PATH, map_location='cpu')
     model.eval()
     return model
