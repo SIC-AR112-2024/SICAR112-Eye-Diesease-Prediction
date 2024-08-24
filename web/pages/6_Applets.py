@@ -222,7 +222,7 @@ if uploaded_file is not None:
         with torch.no_grad():
             outputs = [modelz[0](img_tensor), modelz[1](img_tensor), modelz[2](img_tensor)]
 
-        labels = load_labels('labels\labels.txt')
+        labels = load_labels("labels/labels.txt")
 
         _, predicted_idx = [torch.max(outputs[0], 1), torch.max(outputs[1], 1), torch.max(outputs[2], 1)]
         predicted_labels = [labels[predicted_idx[0].item()], labels[predicted_idx[1].item()], labels[predicted_idx[2].item()]]
