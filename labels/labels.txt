@@ -1,0 +1,4 @@
+normal
+cataract
+diabetic_retinopathy
+glaucoma
