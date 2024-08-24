@@ -1,4 +1,4 @@
-normal
-cataract
-diabetic_retinopathy
 glaucoma
+diabetic_retinopathy
+cataract
+normal
