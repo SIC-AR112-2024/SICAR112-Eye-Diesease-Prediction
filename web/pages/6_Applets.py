@@ -209,16 +209,8 @@ if uploaded_file is not None:
     # Open the image
     image = Image.open(uploaded_file)
     
-    # Resize the image
-    st.sidebar.header("Resize Options")
-    width = st.sidebar.slider("Width", min_value=100, max_value=1000, value=300)
-    height = st.sidebar.slider("Height", min_value=100, max_value=1000, value=300)
-    
-    # Resize the image
-    resized_image = image.resize((width, height))
-    
     # Display the image in the app
-    st.image(resized_image, caption="Retinal Fundus Image", use_column_width=True)
+    st.image(image, caption="Retinal Fundus Image", use_column_width=True)
     
     # Optionally, you can process the image here
     st.write("Image successfully uploaded and displayed! Pending Analysis...")
