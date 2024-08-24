@@ -198,11 +198,11 @@ preprocess = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-models = []
+modelz = []
 
 for i in range(len(paths)):
     mod = load_model[i](paths[i])
-    models.append(mod)
+    modelz.append(mod)
 
 
 
@@ -234,7 +234,7 @@ if uploaded_file is not None:
 
     if st.button('Click here for prediction'):
         with torch.no_grad():
-            outputs = [models[0](img_tensor), models[2](img_tensor), models[1](img_tensor)]
+            outputs = [modelz[0](img_tensor), modelz[1](img_tensor), modelz[2](img_tensor)]
 
         labels = load_labels('labels\labels.txt')
 
