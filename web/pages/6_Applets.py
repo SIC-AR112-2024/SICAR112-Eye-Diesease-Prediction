@@ -32,7 +32,13 @@ def load_model2(MODEL_PATH):
     model.eval()
     return model
 
+def load_model4(MODEL_PATH):
+    model = models.resnet34()
+    model.load_state_dict(torch.load(MODEL_PATH, map_location='cpu'))
+    model.eval()
+    return model
 
+'''
 # Load the pre-trained ResNet model
 def load_model3(MODEL_PATH):
     class ReSNeT18(nn.Module):
@@ -188,8 +194,9 @@ def load_model3(MODEL_PATH):
     
     ensemble_model.eval()
     return ensemble_model
+'''
 
-load_model = [load_model1, load_model2, load_model3]
+load_model = [load_model1, load_model2, load_model4]
 # Define image preprocessing transformations
 preprocess = transforms.Compose([
     transforms.Resize(256),
