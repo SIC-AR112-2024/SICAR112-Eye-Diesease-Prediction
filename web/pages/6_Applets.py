@@ -133,20 +133,19 @@ class CustomResNet(nn.Module):
 # Load the pre-trained ResNet model
 def load_model1(MODEL_PATH):
     model = models.resnet50()
-    model.load_state_dict(torch.load(MODEL_PATH, map_location='cpu'))
+    model = torch.load(MODEL_PATH, map_location='cpu')
     model.eval()
     return model
 
 # Load the pre-trained ResNet model
 def load_model2(MODEL_PATH):
     model = models.resnet34()
-    model.load_state_dict(torch.load(MODEL_PATH, map_location='cpu'))
+    model = torch.load(MODEL_PATH, map_location='cpu')
     model.eval()
     return model
 
 def load_model3(MODEL_PATH):
-    model = EnsembleModel()
-    model.load_state_dict(torch.load(MODEL_PATH, map_location='cpu'))
+    model = torch.load(MODEL_PATH, map_location='cpu')
     model.eval()
     return model
 
