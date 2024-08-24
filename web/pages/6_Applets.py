@@ -146,7 +146,7 @@ def load_model2(MODEL_PATH):
 
 def load_model3(MODEL_PATH):
     model = EnsembleModel()
-    model = torch.load(MODEL_PATH, map_location='cpu')
+    model.load_state_dict(torch.load(MODEL_PATH, map_location='cpu'))
     model.eval()
     return model
 
