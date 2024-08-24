@@ -220,12 +220,12 @@ if uploaded_file is not None:
 
     if st.button('Click here for prediction'):
         with torch.no_grad():
-            outputs = [modelz[0](img_tensor), modelz[1](img_tensor), modelz[2](img_tensor)]
+            outputs = [model(img_tensor) for model in modelz]
 
         labels = load_labels("labels/labels.txt")
 
-        _, predicted_idx = [torch.max(outputs[0], 1), torch.max(outputs[1], 1), torch.max(outputs[2], 1)]
-        predicted_labels = [labels[predicted_idx[0].item()], labels[predicted_idx[1].item()], labels[predicted_idx[2].item()]]
+        predicted_indices = [torch.argmax(output, dim=1).item() for output in outputs]
+        predicted_labels = [labels[idx] for idx in predicted_indices]
 
         st.write(f"Predicted Label for the resnet50 model: {predicted_labels[0]}")
         st.write(f"Predicted Label for the resnet34 model: {predicted_labels[1]}")
