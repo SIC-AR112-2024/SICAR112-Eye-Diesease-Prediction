@@ -23,7 +23,7 @@ def get_window_width():
     components.html(component_code, height=1)
     
     # Receive the window width from JavaScript
-    with st.beta_expander("Hidden"):
+    with st.expander("Hidden"):
         width = st.session_state.get("windowWidth", 800)  # Default width if not set
     return width
 
