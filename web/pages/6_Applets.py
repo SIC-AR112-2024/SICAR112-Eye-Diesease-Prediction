@@ -6,6 +6,29 @@ import torch.nn as nn
 import torch.nn.functional as F
 import requests
 import os
+import streamlit.components.v1 as components
+
+# Create a custom component that gets the window width
+def get_window_width():
+    # Custom HTML/JS to get window width
+    component_code = """
+    <script>
+    window.onload = function() {
+        const width = window.innerWidth;
+        window.parent.postMessage({ type: 'windowWidth', width: width }, '*');
+    };
+    </script>
+    """
+    # Create an empty component to run the script
+    components.html(component_code, height=1)
+    
+    # Receive the window width from JavaScript
+    with st.beta_expander("Hidden"):
+        width = st.session_state.get("windowWidth", 800)  # Default width if not set
+    return width
+
+# Display the window width
+window_width = get_window_width()
 
 st.title("Applets")
 st.write("Trialing photo upload feature.")
@@ -212,16 +235,13 @@ if uploaded_file is not None:
     # Display the image in the app
     #st.image(image, caption="Retinal Fundus Image", use_column_width=True)
     
-    # Resize the image
-    st.sidebar.header("Resize Options")
-    width = st.sidebar.slider("Width", min_value=100, max_value=1000, value=300)
-    height = st.sidebar.slider("Height", min_value=100, max_value=1000, value=300)
+    
     
     # Resize the image
-    resized_image = image.resize((width, height))
+    resized_image = image.resize((window_width/4, window_width/4))
     
     # Display the resized image
-    st.image(resized_image, caption="Retinal Fundus Image", use_column_width=True)
+    st.image(resized_image, caption="Retinal Fundus Image", use_column_width=False)
     
     # Optionally, you can process the image here
     st.write("Image successfully uploaded and displayed! Pending Analysis...")
