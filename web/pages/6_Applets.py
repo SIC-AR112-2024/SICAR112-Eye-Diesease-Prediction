@@ -238,7 +238,7 @@ if uploaded_file is not None:
     
     
     # Resize the image
-    resized_image = image.resize((window_width/4, window_width/4))
+    resized_image = image.resize((int(window_width/4), int(window_width/4)))
     
     # Display the resized image
     st.image(resized_image, caption="Retinal Fundus Image", use_column_width=False)
