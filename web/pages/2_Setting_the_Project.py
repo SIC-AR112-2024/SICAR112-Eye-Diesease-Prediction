@@ -19,3 +19,11 @@ if response.status_code == 200:
     st.image(image, caption="This is the confusion matrix of our in house trained model.", use_column_width=True)
 else:
     st.error(f"Failed to load image. Status code: {response.status_code}")  # Display an error message
+st.subheader("Identifying Diseases")
+st.write("From some research, we noted the following characteristics in the retinal fundus images that were usually present in the retinal fundus images of the diseases.")
+# Bulleted list with bold words using markdown
+st.markdown("""
+- **Cataract:** The lens would usually appear cloudy or opaque in the retinal fundus image, causing the whole image to be blurry in general.
+- **Diabetic Retinopathy:** Small red dots scattered along the retina in the fundus image are characteristic of tiny, bulging blood vessels in the eye called microaneurysms. Cotton wool white spots on the retinal image can also signify inflammation and retinal damage caused by the disease. In addition, bleeding may be observed in the retinal fundus image when the microaneurysms rupture.
+- **Glaucoma:** The image shows an enlarged optic cup, causing the optic nerve head to appear enlarged and cupped in shape. This results in a higher optic cup to disk ratio. This also causes the thinning of the neuroretinal rim as the thickness of the retinal nerve fibre layer decreases.
+""")
