@@ -1,3 +1,7 @@
 import streamlit as st
-st.title("SIC AR112 - Identification of Eye Disease using retinal fundus images Landing Page")
-st.text("Click on any of the pages on the sidebar to get started!")
+#home page
+st.set_up_config(page_icon='web/more_images/Gap_Sem_Logo.png')
+st.image('web/more_images/Gap_Sem_Logo.png')
+st.title("Home Page")
+st.write("Welcome to the home page of our SIC Project - AR112!")
+st.write("The goal of this project is to test the effectiveness of Large Language Models (LLMs) at identifiying eye diseases from retinal fundus images in comparison to traditional machine learning (ML) models like ResNets.")

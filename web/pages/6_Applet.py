@@ -7,6 +7,11 @@ import torch.nn.functional as F
 import requests
 import os
 import streamlit.components.v1 as components
+import openai
+from openai import OpenAI
+from langchain.prompts import PromptTemplate
+import base64
+
 
 # Create a custom component that gets the window width
 def get_window_width():
@@ -213,7 +218,9 @@ for i in range(len(paths)):
     mod = load_model[i](paths[i])
     modelz.append(mod)
 
-
+#obtain base 64 encoding of image so that chatgpt can actually understand it
+def encode_image(image_file):
+    return base64.b64encode(image_file.read()).decode('utf-8')
 
 # Define image preprocessing transformations
 preprocess = transforms.Compose([
@@ -226,6 +233,22 @@ preprocess = transforms.Compose([
 
 # File uploader for images
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+
+llm = ChatOpenAI(
+    model="gpt-4o",
+    temperature=0,
+    api_key=os.environ["OPENAI_API_KEY"],
+    request_timeout=120 # Increased timeout to handle potential delays
+)
+
+def get_explanation(predicted_label, confidence):
+                
+                prompt = prompt_template.format(image_content=encode_image(uploaded_file), predicted_label=predicted_label, confidence=confidence)
+                
+
+                response = llm(prompt)
+                explanation = response.strip()
+                return explanation
 
 # Check if a file is uploaded
 if uploaded_file is not None:
@@ -248,6 +271,14 @@ if uploaded_file is not None:
     
     img_tensor = preprocess(image)
     img_tensor = img_tensor.unsqueeze(0)  # Add batch dimension
+    
+    prompt_template = PromptTemplate(
+                    input_variables=["image_content", "predicted_label", "confidence"],
+                    template=(
+                        "The model predicted that the following image has the disease '{predicted_label}' with a confidence of {confidence:.2f}%."
+                        "Explain the features of the image that would lead the model to give this particular diagnosis.\n\n{image_content}"
+                    )
+                )
 
     if st.button('Click here for prediction'):
         with torch.no_grad():
@@ -264,4 +295,18 @@ if uploaded_file is not None:
         st.write(f"Predicted Label for the resnet50 model: {predicted_labels[0]} with confidence: {confidences[0] * 100:.2f}%")
         st.write(f"Predicted Label for the resnet34 model: {predicted_labels[1]} with confidence: {confidences[1] * 100:.2f}%")
         st.write(f"Predicted Label for the ResNet-AR112 Ensemble model: {predicted_labels[2]} with confidence: {confidences[2] * 100:.2f}%")
+        api_key = st.text_input("Enter your OpenAI API key:", type="password")
+        if api_key:
+            openai.api_key = api_key
+            
+            # Get explanations for each prediction
+            explanation_50 = get_explanation(predicted_labels[0], confidences[0] * 100)
+            explanation_34 = get_explanation(predicted_labels[1], confidences[1] * 100)
+            explanation_custom = get_explanation(predicted_labels[2], confidences[2] * 100)
 
+            # Display explanations
+            st.write(f"Explanation for ResNet50 prediction: {explanation_50}")
+            st.write(f"Explanation for ResNet34 prediction: {explanation_34}")
+            st.write(f"Explanation for Custom ResNet prediction: {explanation_custom}")
+        else:
+            st.warning("Please enter your OpenAI API key to proceed.")
