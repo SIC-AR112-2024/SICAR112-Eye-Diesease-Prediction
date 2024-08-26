@@ -6,4 +6,4 @@ langchain
 regex
 tenacity
 seaborn
-sklearn
+scikit-learn
