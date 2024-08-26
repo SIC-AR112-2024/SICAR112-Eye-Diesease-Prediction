@@ -288,29 +288,34 @@ if uploaded_file is not None:
         
         # Calculate confidence levels (softmax)
         confidences = [F.softmax(output, dim=1)[0, idx].item() for output, idx in zip(outputs, predicted_indices)]
+        # Get explanations for each prediction
+        explanation_50 = get_explanation(predicted_labels[0], confidences[0] * 100)
+        explanation_34 = get_explanation(predicted_labels[1], confidences[1] * 100)
+        explanation_custom = get_explanation(predicted_labels[2], confidences[2] * 100)
 
         st.write(f"Predicted Label for the resnet50 model: {predicted_labels[0]} with confidence: {confidences[0] * 100:.2f}%")
         st.write(f"Predicted Label for the resnet34 model: {predicted_labels[1]} with confidence: {confidences[1] * 100:.2f}%")
         st.write(f"Predicted Label for the ResNet-AR112 Ensemble model: {predicted_labels[2]} with confidence: {confidences[2] * 100:.2f}%")
-        api_key = st.text_input("Enter your OpenAI API key:", type="password")
-        if api_key:
-            openai.api_key = api_key
-            
-            llm = ChatOpenAI(
-                model="gpt-4o",
-                temperature=0,
-                api_key=os.environ[openai.api_key],
-                request_timeout=120 # Increased timeout to handle potential delays
-            )
-            
-            # Get explanations for each prediction
-            explanation_50 = get_explanation(predicted_labels[0], confidences[0] * 100)
-            explanation_34 = get_explanation(predicted_labels[1], confidences[1] * 100)
-            explanation_custom = get_explanation(predicted_labels[2], confidences[2] * 100)
+        
+        
 
+        if openai.api_key is not None:
             # Display explanations
             st.write(f"Explanation for ResNet50 prediction: {explanation_50}")
             st.write(f"Explanation for ResNet34 prediction: {explanation_34}")
             st.write(f"Explanation for Custom ResNet prediction: {explanation_custom}")
-        else:
-            st.warning("Please enter your OpenAI API key to proceed.")
+            
+api_key = st.text_input("Enter your OpenAI API key:", type="password")
+if api_key:
+    openai.api_key = api_key
+    
+    llm = ChatOpenAI(
+        model="gpt-4o",
+        temperature=0,
+        api_key=os.environ[openai.api_key],
+        request_timeout=120 # Increased timeout to handle potential delays
+    )
+    
+    
+else:
+    st.warning("Please enter your OpenAI API key to proceed.")
