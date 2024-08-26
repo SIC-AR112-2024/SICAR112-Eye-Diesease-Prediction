@@ -271,7 +271,7 @@ if not st.session_state.api_key_entered:
             llm = ChatOpenAI(
                 model="gpt-4o",
                 temperature=0,
-                api_key=openai.api_key,
+                api_key='ss',
                 request_timeout=120  # Increased timeout to handle potential delays
             )
             st.success("API key successfully set.")
