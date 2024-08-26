@@ -10,6 +10,7 @@ import streamlit.components.v1 as components
 import openai
 from openai import OpenAI
 from langchain.prompts import PromptTemplate
+from langchain.chat_models import ChatOpenAI
 import base64
 
 
