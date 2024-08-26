@@ -1,6 +1,8 @@
 import streamlit as st
 import openai
 from time import sleep
+from web.backend.zero_shot import zero_shot
+from we.backend.few_shot import few_shot
 images = {
     'Glaucoma':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Glaucoma
     'Diabetic Retinopathy':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Diabetic Retinopathy
@@ -23,6 +25,7 @@ LLM_mode = st.multiselect("Pick a prompting method:", ['0-shot', 'Few-shot'])
 API_Key = st.text_input("API Key here 👇", placeholder="Type API Key (Ask us for ours!)")
 
 if LLM_mode == '0-shot':
+    message = []
     message = [
     {'role':'user',
     'content':[
@@ -32,6 +35,7 @@ If the eye is healthy, say "HEALTHY". If not, tell me whether the patient has "C
         {'type': 'image_url', 'image_url':{'url':images[ailment]}}
     ]}]
 if LLM_mode == 'Few-shot':
+    message = []
     message = [
     {'role': 'system',
         'content': """You are a medical student. You will be given several retinal fundus images as a test.
@@ -76,10 +80,13 @@ for i in message:
             st.write(i['content'][0]['text'])
             st.image(i['content'][1]['image_url']['url'])
     elif i['role'] == 'system':
-        with st.chat_message('System Instructions'):
+        with st.chat_message('System Instructions', avatar = ':material/computer:'):
             st.write(i['content'])
     else:
         with st.chat_message('ai'):
             st.write(i['content'])
 
-gen = 
+if LLM_mode == '0-shot':
+    st.button('Generate CPT-4o output (0-shot):', on_call = zero_shot.query_0_shot(message, API_Key))
+if LLM_mode == 'Few-shot':
+    st.button('Generate GPT-4o output (few-shot):', on_call = few_shot.query_few_shot(message, API_Key))
