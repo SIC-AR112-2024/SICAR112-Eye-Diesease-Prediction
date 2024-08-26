@@ -240,7 +240,7 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 
 def get_explanation(predicted_label, confidence):   
     # Debugging statements
-    st.write(f"DEncoded Image: {encoded_image[:50]}...")  # Print part of the encoded image for inspection
+    st.write(f"DEncoded Image: {encode_image(uploaded_file)[:50]}...")  # Print part of the encoded image for inspection
     st.write(f"DPredicted Label: {predicted_label}")
     st.write(f"DConfidence: {confidence}")
              
@@ -331,7 +331,7 @@ if uploaded_file is not None:
         
         
 
-        if api_key is not None:
+        if openai.api_key is not None:
             # Get explanations for each prediction
             explanation_50 = get_explanation(predicted_labels[0], confidences[0] * 100)
             explanation_34 = get_explanation(predicted_labels[1], confidences[1] * 100)
