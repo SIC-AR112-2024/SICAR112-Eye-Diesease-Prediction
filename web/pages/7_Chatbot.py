@@ -56,6 +56,6 @@ for i in message:
             st.write(i['content'])
 
 if LLM_mode == '0-shot':
-    st.button('Generate CPT-4o output (0-shot):')
+    st.button('Generate GPT-4o output (0-shot):')
 if LLM_mode == 'Few-shot':
     st.button('Generate GPT-4o output (few-shot):')
