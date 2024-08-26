@@ -247,6 +247,24 @@ def get_explanation(predicted_label, confidence):
                 explanation = response.strip()
                 return explanation
 
+api_key = st.text_input("Enter your OpenAI API key:", type="password")
+if api_key:
+    try:
+        openai.api_key = api_key
+        
+        llm = ChatOpenAI(
+            model="gpt-4o",
+            temperature=0,
+            api_key=openai.api_key,
+            request_timeout=120 # Increased timeout to handle potential delays
+        )
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+else:
+    st.warning("Please enter your OpenAI API key to proceed.")
+    
+
+
 # Check if a file is uploaded
 if uploaded_file is not None:
     # Open the image
@@ -306,18 +324,3 @@ if uploaded_file is not None:
             st.write(f"Explanation for ResNet34 prediction: {explanation_34}")
             st.write(f"Explanation for Custom ResNet prediction: {explanation_custom}")
             
-api_key = st.text_input("Enter your OpenAI API key:", type="password")
-if api_key:
-    print(api_key)
-    openai.api_key = api_key
-    
-    llm = ChatOpenAI(
-        model="gpt-4o",
-        temperature=0,
-        api_key=os.environ[openai.api_key],
-        request_timeout=120 # Increased timeout to handle potential delays
-    )
-    
-    
-else:
-    st.warning("Please enter your OpenAI API key to proceed.")
