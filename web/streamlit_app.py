@@ -1,5 +1,4 @@
 import streamlit as st
-
 #home page
 st.set_up_config(page_icon='web/more_images/Gap_Sem_Logo.png')
 st.image('web/more_images/Gap_Sem_Logo.png')
