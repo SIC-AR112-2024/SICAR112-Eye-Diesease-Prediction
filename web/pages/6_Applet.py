@@ -331,7 +331,7 @@ if uploaded_file is not None:
         
         
 
-        if openai.api_key is not None:
+        if st.session_state.api_key is not None:
             # Get explanations for each prediction
             explanation_50 = get_explanation(predicted_labels[0], confidences[0] * 100)
             explanation_34 = get_explanation(predicted_labels[1], confidences[1] * 100)
