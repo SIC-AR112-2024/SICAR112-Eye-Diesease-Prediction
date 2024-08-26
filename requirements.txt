@@ -3,3 +3,7 @@ torch
 torchvision
 openai
 langchain
+regex
+tenacity
+seaborn
+sklearn
