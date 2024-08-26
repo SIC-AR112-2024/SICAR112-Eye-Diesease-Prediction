@@ -238,7 +238,12 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 
 
 
-def get_explanation(predicted_label, confidence):            
+def get_explanation(predicted_label, confidence):   
+    # Debugging statements
+    st.write(f"DEncoded Image: {encoded_image[:50]}...")  # Print part of the encoded image for inspection
+    st.write(f"DPredicted Label: {predicted_label}")
+    st.write(f"DConfidence: {confidence}")
+             
     prompt = prompt_template.format(image_content=encode_image(uploaded_file), predicted_label=predicted_label, confidence=confidence)
     
     try:
@@ -248,22 +253,32 @@ def get_explanation(predicted_label, confidence):
     except Exception as e:
         st.error(f"An error occurred while getting explanation: {e}")
         return "Explanation could not be retrieved."
+    
+    
+# Initialize session state variables
+if 'api_key_entered' not in st.session_state:
+    st.session_state.api_key_entered = False
+if 'api_key' not in st.session_state:
+    st.session_state.api_key = ""
 
-api_key = st.text_input("Enter your OpenAI API key:", type="password")
-if api_key:
-    try:
-        openai.api_key = api_key
-        
-        llm = ChatOpenAI(
-            model="gpt-4o",
-            temperature=0,
-            api_key=openai.api_key,
-            request_timeout=120 # Increased timeout to handle potential delays
-        )
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
+# Display input field only if API key hasn't been entered yet
+if not st.session_state.api_key_entered:
+    st.session_state.api_key = st.text_input("Enter your OpenAI API key:", type="password")
+    if st.session_state.api_key:
+        st.session_state.api_key_entered = True
+        try:
+            openai.api_key = st.session_state.api_key
+            llm = ChatOpenAI(
+                model="gpt-4o",
+                temperature=0,
+                api_key=openai.api_key,
+                request_timeout=120  # Increased timeout to handle potential delays
+            )
+            st.success("API key successfully set.")
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
 else:
-    st.warning("Please enter your OpenAI API key to proceed.")
+    st.write("API key has been set.")
     
 
 
