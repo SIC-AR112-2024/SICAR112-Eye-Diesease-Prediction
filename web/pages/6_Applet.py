@@ -257,7 +257,10 @@ if uploaded_file is not None:
 
         predicted_indices = [torch.argmax(output, dim=1).item() for output in outputs]
         predicted_labels = [labels[idx] for idx in predicted_indices]
+        
+        # Calculate confidence levels (softmax)
+        confidences = [F.softmax(output, dim=1)[0, idx].item() for output, idx in zip(outputs, predicted_indices)]
 
-        st.write(f"Predicted Label for the resnet50 model: {predicted_labels[0]}")
-        st.write(f"Predicted Label for the resnet34 model: {predicted_labels[1]}")
-        st.write(f"Predicted Label for the ResNet-AR112 Ensemble model: {predicted_labels[2]}")
+        st.write(f"Predicted Label for the resnet50 model: {predicted_labels[0]} with confidence: {confidences[0]:.2f}")
+        st.write(f"Predicted Label for the resnet34 model: {predicted_labels[1]} with confidence: {confidences[1]:.2f}")
+        st.write(f"Predicted Label for the ResNet-AR112 Ensemble model: {predicted_labels[2]} with confidence: {confidences[2]:.2f}")
