@@ -113,11 +113,3 @@ subpages = {
     "Acknowledgements": acknowledgements_and_photos_page,
     "Codebooks": codebooks_page
 }
-
-# Sidebar for navigation
-st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", list(subpages.keys()))
-
-# Display the selected page
-subpages[page]()
-
