@@ -27,3 +27,22 @@ st.markdown("""
 - **Diabetic Retinopathy:** Small red dots scattered along the retina in the fundus image are characteristic of tiny, bulging blood vessels in the eye called microaneurysms. Cotton wool white spots on the retinal image can also signify inflammation and retinal damage caused by the disease. In addition, bleeding may be observed in the retinal fundus image when the microaneurysms rupture, causing haemorrhages. Soft and hard exudates amy also be present on the image.
 - **Glaucoma:** The image shows an enlarged optic cup, causing the optic nerve head to appear enlarged and cupped in shape. This results in a higher optic cup to disk ratio. This also causes the thinning of the neuroretinal rim as the thickness of the retinal nerve fibre layer decreases. In addition, the retinal fundus images may display retinal blood vessel asymmetry at the optic cup.
 """)
+
+st.write("Detailed annotated retinal fundus images are avaliable for each of the diseases below.")
+
+urls = ["https://raw.githubusercontent.com/SIC-AR112-2024/SICAR112-Eye-Disease-Prediction/main/Diagnosis%20Images/Cataract%20Diagnosis.png",
+        "https://raw.githubusercontent.com/SIC-AR112-2024/SICAR112-Eye-Disease-Prediction/main/Diagnosis%20Images/Diabetic%20Retinopathy%20Diagnosis%201.png",
+        "https://raw.githubusercontent.com/SIC-AR112-2024/SICAR112-Eye-Disease-Prediction/main/Diagnosis%20Images/Diabetic%20Retinopathy%20Diagnosis%202.png",
+        "https://raw.githubusercontent.com/SIC-AR112-2024/SICAR112-Eye-Disease-Prediction/main/Diagnosis%20Images/Glaucoma%20Diagnosis.png"]
+
+captions = ["Cataract Diagnosis Annotated Retinal Fundus Image", "Diabetic Retinopathy Diagnosis Annotated Retinal Fundus Image", "Diabetic Retinopathy Diagnosis Annotated Retinal Fundus Image", "Glaucoma Diagnosis Annotated Retinal Fundus Image"]
+
+for i in range(len(urls)):
+    response = requests.get(urls[i])
+    # Check if the request was successful
+    if response.status_code == 200:
+        image = Image.open(BytesIO(response.content))
+        # Display the image using Streamlit
+        st.image(image, caption=captions[i], use_column_width=True)
+    else:
+        st.error(f"Failed to load image. Status code: {response.status_code}")  # Display an error message
