@@ -236,12 +236,7 @@ preprocess = transforms.Compose([
 # File uploader for images
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
-llm = ChatOpenAI(
-    model="gpt-4o",
-    temperature=0,
-    api_key=os.environ["OPENAI_API_KEY"],
-    request_timeout=120 # Increased timeout to handle potential delays
-)
+
 
 def get_explanation(predicted_label, confidence):
                 
@@ -300,6 +295,13 @@ if uploaded_file is not None:
         api_key = st.text_input("Enter your OpenAI API key:", type="password")
         if api_key:
             openai.api_key = api_key
+            
+            llm = ChatOpenAI(
+                model="gpt-4o",
+                temperature=0,
+                api_key=os.environ[openai.api_key],
+                request_timeout=120 # Increased timeout to handle potential delays
+            )
             
             # Get explanations for each prediction
             explanation_50 = get_explanation(predicted_labels[0], confidences[0] * 100)
