@@ -33,7 +33,7 @@ def dataset_and_confusion_matrix_page():
 def classical_models_page():
     st.title("Classical Models")
     st.subheader("Results")
-    st.write("Firstly, we tried to analyse the retinal fundus images using a few models. These include the PyTorch pretrained resnet18, resnet34 and resnet50 models, our own customised resnet18 model, a Convolutional Neural Network model that we built, as well as a GoogLeNet model. We ran the models through the dataset and obtained the following results.")
+    st.write("Firstly, we tried to analyse the retinal fundus images using a few models. These include the PyTorch pretrained ResNet18, ResNet34 and ResNet50 models, our own custom ResNet18 model, a Convolutional Neural Network model that we built, a GoogLeNet model, and an ensemble model comprising of a combination of the previously mentioned model. We ran the models through the dataset and obtained the following results.")
     
     # Load image from URL
     url0 = "https://raw.githubusercontent.com/SIC-AR112-2024/SICAR112-Eye-Disease-Prediction/main/Confusion%20Matrix%20Accuracy%20Guarantee/Accuracy%20Results.png"
@@ -48,7 +48,7 @@ def classical_models_page():
     
     st.subheader("Identifying the diseases")
     
-    st.write("From the accuracy results, we can see that the resnet50, followed by the resnet34 and finally the resnet18 models were able to identify the retinal fundus images most accurately. However, we also learnt by research that by combining models together, we would be able to generate more accurate predictions. Hence, we experimeted with two different ensemble model architectures, one by combining the resnet34 and the resnet18 models only, and the other by combining the abovementioned two models along with our custom resnet18 model. As seen from the accuracy diagram above, these two ensemble models performed exceptionally well, with the former outperforming the resnet18 model and the latter outperforming the resnet34 model in all diseases. This latter model, named ResNet-AR112, is used along with resnet50 and resnet34 in our prediction model framework below.")
+    st.write("From the accuracy results, we can see that the ResNet50, followed by the ResNet34 and finally the ResNet18 models were able to identify the retinal fundus images most accurately. However, we also learnt by research that by combining models together, we would be able to generate more accurate predictions. Hence, we experimented with two different ensemble model architectures, one by combining the ResNet34 and the ResNet18 models only, and the other by combining the above mentioned two models along with our custom ResNet18 model. As seen from the accuracy diagram above, these two ensemble models performed exceptionally well, with the former outperforming the ResNet18 model and the latter outperforming the ResNet34 model in all diseases. This latter model, named ResNet-AR112, is used along with ResNet50 and ResNet34 in our prediction model framework below.")
 
     st.subheader("Data Analysis")
     st.write("The following are the confusion matrix diagrams attached for each of the models utilised in the prediction framework.")
