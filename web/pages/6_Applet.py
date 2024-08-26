@@ -245,10 +245,10 @@ def get_explanation(predicted_label, confidence):
         return "Explanation could not be retrieved."
              
     prompt = prompt_template.format(image_content=encode_image(uploaded_file), predicted_label=predicted_label, confidence=confidence)
-    
+    st.write(f"LLM type: {st.session_state.llm}")  # Debug output type
     try:
         response = st.session_state.llm(prompt)
-        st.write(f"Response type: {type(response)}")  # Debug output type
+        st.write(f"Response type: {response}")  # Debug output type
         if not isinstance(response, str):
             response = str(response)
         explanation = response.strip()
