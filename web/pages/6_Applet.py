@@ -261,6 +261,6 @@ if uploaded_file is not None:
         # Calculate confidence levels (softmax)
         confidences = [F.softmax(output, dim=1)[0, idx].item() for output, idx in zip(outputs, predicted_indices)]
 
-        st.write(f"Predicted Label for the resnet50 model: {predicted_labels[0]} with confidence: {confidences[0] * 100:.3f}%")
-        st.write(f"Predicted Label for the resnet34 model: {predicted_labels[1]} with confidence: {confidences[1] * 100:.3f}%")
-        st.write(f"Predicted Label for the ResNet-AR112 Ensemble model: {predicted_labels[2]} with confidence: {confidences[2] * 100:.3f}%")
+        st.write(f"Predicted Label for the resnet50 model: {predicted_labels[0]} with confidence: {confidences[0] * 100:.2f}%")
+        st.write(f"Predicted Label for the resnet34 model: {predicted_labels[1]} with confidence: {confidences[1] * 100:.2f}%")
+        st.write(f"Predicted Label for the ResNet-AR112 Ensemble model: {predicted_labels[2]} with confidence: {confidences[2] * 100:.2f}%")
