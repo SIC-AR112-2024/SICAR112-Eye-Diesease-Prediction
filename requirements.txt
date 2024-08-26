@@ -7,3 +7,4 @@ regex
 tenacity
 seaborn
 scikit-learn
+langchain_community

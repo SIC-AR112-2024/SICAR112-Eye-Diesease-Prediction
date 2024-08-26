@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+import langchain_community
 import torch
 from torchvision import models, transforms
 import torch.nn as nn
@@ -37,7 +38,7 @@ def get_window_width():
 window_width = get_window_width()
 
 st.title("Applets")
-st.write("Trialing photo upload feature.")
+st.write("Upload a retinal fundus image for a diagnosis!")
 
 # Load custom labels from a file
 def load_labels(label_file):
