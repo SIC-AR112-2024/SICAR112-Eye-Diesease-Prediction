@@ -248,6 +248,7 @@ def get_explanation(predicted_label, confidence):
     
     try:
         response = st.session_state.llm(prompt)
+        st.write(f"Response type: {type(response)}")  # Debug output type
         if not isinstance(response, str):
             response = str(response)
         explanation = response.strip()
