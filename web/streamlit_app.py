@@ -34,7 +34,8 @@ def classical_models_page():
     st.title("Classical Models")
     st.subheader("Results")
     st.write("Firstly, we tried to analyse the retinal fundus images using a few models. These include the PyTorch pretrained ResNet18, ResNet34 and ResNet50 models, our own custom ResNet18 model, a Convolutional Neural Network model that we built, a GoogLeNet model, and an ensemble model comprising of a combination of the previously mentioned model. We ran the models through the dataset and obtained the following results.")
-    
+    st.subheader("About ResNet")
+    st.write("ResNet, which stands for residual neural network, is deep learning architecture which involves the use of “residual connections”, where the input from a few blocks ago is directly added to the current block’s output. This helps to prevent the vanishing gradient problem, where the updates to the model during training become very small as the number of layers increase. This allows us to build larger networks that can infer more features from the image.")
     # Load image from URL
     url0 = "https://raw.githubusercontent.com/SIC-AR112-2024/SICAR112-Eye-Disease-Prediction/main/Confusion%20Matrix%20Accuracy%20Guarantee/Accuracy%20Results.png"
     response = requests.get(url0)
