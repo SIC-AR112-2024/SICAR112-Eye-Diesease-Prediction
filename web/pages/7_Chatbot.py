@@ -1,8 +1,8 @@
 import streamlit as st
 import openai
 from time import sleep
-from web.backend.zero_shot import zero_shot
-from we.backend.few_shot import few_shot
+from web.backend.zero_shot import (init_prompt_zero_shot)
+from web.backend.few_shot import (init_prompt_CoT, query_few_shot)
 images = {
     'Glaucoma':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Glaucoma
     'Diabetic Retinopathy':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Diabetic Retinopathy
@@ -25,7 +25,6 @@ LLM_mode = st.multiselect("Pick a prompting method:", ['0-shot', 'Few-shot'])
 API_Key = st.text_input("API Key here 👇", placeholder="Type API Key (Ask us for ours!)")
 
 if LLM_mode == '0-shot':
-    message = []
     message = [
     {'role':'user',
     'content':[
@@ -36,37 +35,7 @@ If the eye is healthy, say "HEALTHY". If not, tell me whether the patient has "C
     ]}]
 if LLM_mode == 'Few-shot':
     message = []
-    message = [
-    {'role': 'system',
-        'content': """You are a medical student. You will be given several retinal fundus images as a test.
-Firstly, describe key features depicted in the image, of no less than 100 words, such as the macula, optic nerve, optic cup and disc and retinal blood discs.
-If the eye is healthy, say \"HEALTHY\". If not, tell me whether the patient has \"CATARACT\", \"DIABETIC RETINOPATHY\", or \"GLAUCOMA\". Your final diagnosis must be strictly 1 or 2 words, on a new line."""
-    },
-    {"role": "user",
-        "content": [
-            {"type": "text", "text": "Produce a diagnosis for the following:"},
-            {"type": "image_url", "image_url": {
-                "url": "https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true",
-            },
-            },
-        ],
-    },
-    {"role": "assistant",
-    "content": """The fundus image shows numerous hard exudates scattered throughout the retina, particularly in the macula. These are yellowish-white deposits that are a hallmark of diabetic retinopathy. Additionally, there are microaneurysms, which are small, dilated blood vessels that leak fluid. These features, along with the presence of retinal hemorrhages, are consistent with diabetic retinopathy. The optic nerve appears healthy, ruling out glaucoma. There is no evidence of a cataract.
-DIABETIC RETINOPATHY."""
-    },
-    {"role": "user",
-        "content": [
-            {"type": "text", "text": "Produce a diagnosis for the following:"},
-            {"type": "image_url", "image_url": {
-                "url": "https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/glaucoma/883.jpg?raw=true",
-            },
-            },
-        ],
-    },
-    {"role": "assistant",
-    "content": """The image shows a view of the fundus of the eye. The optic disc, the point where the optic nerve leaves the eye, is visible in the center of the image. The disc is slightly pale and the margins appear blurred. The macula, the central region responsible for central vision, appears slightly edematous. The retinal blood vessels are clearly visible and appear normal.
-GLAUCOMA"""}]
+    message = init_prompt_CoT()
     message.append({"role": "user",
             "content": [
                 {"type": "text", "text": "Produce a diagnosis for the following:"},
@@ -87,6 +56,6 @@ for i in message:
             st.write(i['content'])
 
 if LLM_mode == '0-shot':
-    st.button('Generate CPT-4o output (0-shot):', on_call = zero_shot.query_0_shot(message, API_Key))
+    st.button('Generate CPT-4o output (0-shot):')
 if LLM_mode == 'Few-shot':
-    st.button('Generate GPT-4o output (few-shot):', on_call = few_shot.query_few_shot(message, API_Key))
+    st.button('Generate GPT-4o output (few-shot):')
