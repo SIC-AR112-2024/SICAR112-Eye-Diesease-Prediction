@@ -238,14 +238,16 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 
 
 
-def get_explanation(predicted_label, confidence):
-                
-                prompt = prompt_template.format(image_content=encode_image(uploaded_file), predicted_label=predicted_label, confidence=confidence)
-                
-
-                response = llm(prompt)
-                explanation = response.strip()
-                return explanation
+def get_explanation(predicted_label, confidence):            
+    prompt = prompt_template.format(image_content=encode_image(uploaded_file), predicted_label=predicted_label, confidence=confidence)
+    
+    try:
+        response = llm(prompt)
+        explanation = response.strip()
+        return explanation
+    except Exception as e:
+        st.error(f"An error occurred while getting explanation: {e}")
+        return "Explanation could not be retrieved."
 
 api_key = st.text_input("Enter your OpenAI API key:", type="password")
 if api_key:
@@ -288,12 +290,12 @@ if uploaded_file is not None:
     img_tensor = img_tensor.unsqueeze(0)  # Add batch dimension
     
     prompt_template = PromptTemplate(
-                    input_variables=["image_content", "predicted_label", "confidence"],
-                    template=(
-                        "The model predicted that the following image has the disease '{predicted_label}' with a confidence of {confidence:.2f}%."
-                        "Explain the features of the image that would lead the model to give this particular diagnosis.\n\n{image_content}"
-                    )
-                )
+        input_variables=["image_content", "predicted_label", "confidence"],
+        template=(
+            "The model predicted that the following image has the disease '{predicted_label}' with a confidence of {confidence:.2f}%."
+            "Explain the features of the image that would lead the model to give this particular diagnosis.\n\n{image_content}"
+        )
+    )
 
     if st.button('Click here for prediction'):
         with torch.no_grad():
