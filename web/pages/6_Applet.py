@@ -248,6 +248,8 @@ def get_explanation(predicted_label, confidence):
     
     try:
         response = st.session_state.llm(prompt)
+        if not isinstance(response, str):
+            response = str(response)
         explanation = response.strip()
         return explanation
     except Exception as e:
