@@ -295,7 +295,7 @@ if uploaded_file is not None:
 
     if st.button('Click here for prediction'):
 
-        image_content = encode_image(uploaded_file)
+        image_content = encode_image(image)
 
         with torch.no_grad():
             outputs = [model(img_tensor) for model in modelz]
