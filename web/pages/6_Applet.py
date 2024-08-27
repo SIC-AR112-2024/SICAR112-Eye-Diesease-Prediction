@@ -13,9 +13,6 @@ import base64
 from tenacity import retry, stop_after_attempt, wait_random_exponential
 from collections import Counter
 
-
-
-
 # Create a custom component that gets the window width
 def get_window_width():
     # Custom HTML/JS to get window width
@@ -273,6 +270,10 @@ if api_key:
     except Exception as e:
         st.error(f"An error occurred: {e}")
 
+
+image_content = encode_image(uploaded_file)
+st.text(image_content)
+
 # Check if a file is uploaded
 if uploaded_file is not None:
     # Open the image
@@ -308,13 +309,10 @@ if uploaded_file is not None:
         
         # Calculate confidence levels (softmax)
         confidences = [F.softmax(output, dim=1)[0, idx].item() for output, idx in zip(outputs, predicted_indices)]
-        
 
         st.write(f"Predicted Label for the resnet50 model: {predicted_labels[0]} with confidence: {confidences[0] * 100:.2f}%")
         st.write(f"Predicted Label for the resnet34 model: {predicted_labels[1]} with confidence: {confidences[1] * 100:.2f}%")
         st.write(f"Predicted Label for the ResNet-AR112 Ensemble model: {predicted_labels[2]} with confidence: {confidences[2] * 100:.2f}%")
-        
-        
 
         if api_key is not None:
             # Get explanations for each prediction
@@ -338,7 +336,7 @@ if uploaded_file is not None:
                 ]}
             ]
             #chat_history.append()
-            st.text(image_content)
+            
             # client = openai.OpenAI(api_key=api_key) #API KEY HERE
             # response = client.chat.completions.create(
             #     model="gpt-4o",
