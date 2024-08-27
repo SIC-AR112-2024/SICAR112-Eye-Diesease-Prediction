@@ -238,19 +238,18 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 
 
 
-def get_explanation(predicted_label, confidence):   
+def get_explanation(image_content, predicted_label, confidence):   
     # Debugging statements
     if 'llm' not in st.session_state or st.session_state.llm is None:
         st.error("Explanation service is not initialized.")
         return "Explanation could not be retrieved."
              
-    prompt = prompt_template.format(image_content=encode_image(uploaded_file), predicted_label=predicted_label, confidence=confidence)
+    prompt = prompt_template.format(image_content=image_content, 
+                                    predicted_label=predicted_label, 
+                                    confidence=confidence)
     st.write(f"LLM type: {st.session_state.llm}")  # Debug output type
     try:
         response = st.session_state.llm(prompt)
-        st.write(f"Response type: {response}")  # Debug output type
-        if not isinstance(response, str):
-            response = str(response)
         explanation = response.strip()
         return explanation
     except Exception as e:
@@ -338,9 +337,9 @@ if uploaded_file is not None:
 
         if st.session_state.api_key is not None:
             # Get explanations for each prediction
-            explanation_50 = get_explanation(predicted_labels[0], confidences[0] * 100)
-            explanation_34 = get_explanation(predicted_labels[1], confidences[1] * 100)
-            explanation_custom = get_explanation(predicted_labels[2], confidences[2] * 100)
+            explanation_50 = get_explanation(encode_image(uploaded_file), predicted_labels[0], confidences[0] * 100)
+            explanation_34 = get_explanation(encode_image(uploaded_file), predicted_labels[1], confidences[1] * 100)
+            explanation_custom = get_explanation(encode_image(uploaded_file), predicted_labels[2], confidences[2] * 100)
             # Display explanations
             st.write(f"Explanation for ResNet50 prediction: {explanation_50}")
             st.write(f"Explanation for ResNet34 prediction: {explanation_34}")
