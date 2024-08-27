@@ -8,7 +8,10 @@ In the paper above, CoT prompting serves to:
   - Provide us with a means to seed possible areas for the models to look at (e.g. provide examples 
 looking out for certain characteristics/telltale features of certain diseases)
 
-
+The CoT prompts do show two major downsides, namely:
+    - A lot of tokens are passed into the LLM every prompt, thereby increasing the likelihood of us overcapping our token limit
+    - More complex (my brain hurts)
+            
 CoT prompting was used as follows:
 ***''')
 

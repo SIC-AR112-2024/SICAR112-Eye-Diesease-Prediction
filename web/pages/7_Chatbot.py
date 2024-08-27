@@ -11,13 +11,6 @@ images = {
     'Diabetic Retinopathy':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Diabetic Retinopathy
     'Cataract':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true'} #Cataract
 message = []
-config = genai.GenerationConfig(
-    temperature=0.1,
-    top_p=1.0,
-    top_k=32,
-    candidate_count=1,
-    max_output_tokens=512,  # 8192,
-)
 def init_prompt_CoT(URL):
     return [
     {'role': 'system',
