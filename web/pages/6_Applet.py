@@ -241,7 +241,7 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 def get_explanation(image_content, predicted_label):   
     chat_history = [
         {'role': 'system',
-            'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis."""
+            'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis. This diagnosis is correct. Describe the key features of the retinal fundus image that led to the diagnosis."""
         }
     ]
     
@@ -353,7 +353,7 @@ if uploaded_file is not None:
                 stream=True
             )
             with st.chat_message('human'):
-                st.write('You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis.')
+                st.write('You are a medical student. You will be given a retinal fundus image, along with its diagnosis. This diagnosis is correct. Describe the key features of the retinal fundus image that led to the diagnosis.')
                 st.write(f'Diagnosis: {most_common_element}')
                 st.image(uploaded_file)
             # Display explanations
