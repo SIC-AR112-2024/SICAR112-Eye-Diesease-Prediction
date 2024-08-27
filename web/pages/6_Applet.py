@@ -268,7 +268,7 @@ st.api_key = st.text_input("Enter your OpenAI API key:", type="password")
 if st.api_key:
     try:
         openai.api_key = st.api_key
-        client = openai.OpenAI(openai.api_key)
+        client = openai.OpenAI()
         st.success("API key successfully set.")
     except Exception as e:
         st.error(f"An error occurred: {e}")
