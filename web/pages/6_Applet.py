@@ -243,12 +243,12 @@ def get_explanation(image_content, predicted_label, confidence):
     if 'llm' not in st.session_state or st.session_state.llm is None:
         st.error("Explanation service is not initialized.")
         return "Explanation could not be retrieved."
-             
-    prompt = prompt_template.format(image_content=image_content, 
-                                    predicted_label=predicted_label, 
-                                    confidence=confidence)
-    st.write(f"LLM type: {st.session_state.llm}")  # Debug output type
-    try:
+    
+    try:     
+        prompt = prompt_template.format(image_content=str(image_content), 
+                                        predicted_label=str(predicted_label), 
+                                        confidence=float(confidence))
+        st.write("Generated prompt:", prompt)  # Debugging: Show the generated prompt
         response = st.session_state.llm(prompt)
         explanation = response.strip()
         return explanation
@@ -284,7 +284,6 @@ if not st.session_state.api_key_entered:
 else:
     st.write("API key has been set.")
     
-print('change')
 
 # Check if a file is uploaded
 if uploaded_file is not None:
