@@ -329,7 +329,7 @@ if uploaded_file is not None:
         
         
 
-        if st.session_state.api_key is not None:
+        if st.api_key is not None:
             # Get explanations for each prediction
             counter = Counter(predicted_labels)
             most_common_element, count = counter.most_common(1)[0]
