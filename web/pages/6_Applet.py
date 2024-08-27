@@ -1,6 +1,5 @@
 import streamlit as st
 from PIL import Image
-import langchain_community
 import torch
 from torchvision import models, transforms
 import torch.nn as nn
@@ -10,8 +9,6 @@ import os
 import streamlit.components.v1 as components
 import openai
 from openai import OpenAI
-from langchain.prompts import PromptTemplate
-from langchain.chat_models import ChatOpenAI
 import base64
 from tenacity import retry, stop_after_attempt, wait_random_exponential
 from collections import Counter
