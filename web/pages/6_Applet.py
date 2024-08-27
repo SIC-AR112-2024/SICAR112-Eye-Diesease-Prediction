@@ -313,10 +313,12 @@ if uploaded_file is not None:
         # Calculate confidence levels (softmax)
         confidences = [F.softmax(output, dim=1)[0, idx].item() for output, idx in zip(outputs, predicted_indices)]
         
-        for label in predicted_labels:
-            if label == 'diabetic_retinopathy':
-                label = 'diabetic retinopathy'    
-
+        for i in range(len(predicted_labels)):
+            if predicted_labels[i] == "diabetic_retinopathy":
+                predicted_labels[i] = "diabetic retinopathy"
+            else:
+                predicted_labels[i] = predicted_labels[i]
+        
         st.write(f"Predicted Label for the resnet50 model: {predicted_labels[0]} with confidence: {confidences[0] * 100:.2f}%")
         st.write(f"Predicted Label for the resnet34 model: {predicted_labels[1]} with confidence: {confidences[1] * 100:.2f}%")
         st.write(f"Predicted Label for the ResNet-AR112 Ensemble model: {predicted_labels[2]} with confidence: {confidences[2] * 100:.2f}%")
