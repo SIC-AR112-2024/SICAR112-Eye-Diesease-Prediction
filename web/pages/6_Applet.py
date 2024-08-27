@@ -8,6 +8,7 @@ import requests
 import os
 import streamlit.components.v1 as components
 import openai
+import io
 from openai import OpenAI
 import base64
 from tenacity import retry, stop_after_attempt, wait_random_exponential
@@ -275,7 +276,12 @@ if api_key:
 if uploaded_file is not None:
     # Open the image
     image = Image.open(uploaded_file)
-    image_content = encode_image(uploaded_file)
+    #image_content = encode_image(uploaded_file)
+    
+
+    buffer = io.BytesIO()
+    image.save(buffer, format='JPEG')
+    image_content = base64.b64encode(buffer.getvalue()).decode('utf-8')
     
     # Display the image in the app
     #st.image(image, caption="Retinal Fundus Image", use_column_width=True)
@@ -325,7 +331,7 @@ if uploaded_file is not None:
                  "content": [
                     {"type": "image_url", 
                      "image_url": {
-                         'url':f'data:image/jpg;base64,{image_content}'
+                         'url':f'data:image/jpeg;base64,{image_content}'
                         }
                     },
                     {"type": "text", "text": f"Diagnosis: {most_common_element}"}
