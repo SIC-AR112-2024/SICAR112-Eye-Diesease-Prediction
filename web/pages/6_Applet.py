@@ -38,7 +38,7 @@ def get_window_width():
 # Display the window width
 window_width = get_window_width()
 
-st.title("Applets")
+st.title("Applet")
 st.write("Upload a retinal fundus image for a diagnosis!")
 
 # Load custom labels from a file
