@@ -1,8 +1,8 @@
 import streamlit as st
 import openai
 from time import sleep
-from .backend.zero_shot import (init_prompt_zero_shot)
-from .backend.few_shot import (init_prompt_CoT, query_few_shot)
+from backend.zero_shot import (init_prompt_zero_shot)
+from backend.few_shot import (init_prompt_CoT, query_few_shot)
 images = {
     'Glaucoma':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Glaucoma
     'Diabetic Retinopathy':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Diabetic Retinopathy
