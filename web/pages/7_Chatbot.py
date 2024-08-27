@@ -3,11 +3,21 @@ import openai
 from time import sleep
 from backend.zero_shot import (init_prompt_zero_shot)
 from backend.few_shot import (init_prompt_CoT, query_few_shot)
+import google.generativeai as genai
+from tenacity import (retry, stop_after_attempt, wait_random_exponential)
+
 images = {
     'Glaucoma':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Glaucoma
     'Diabetic Retinopathy':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Diabetic Retinopathy
     'Cataract':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true'} #Cataract
 message = []
+config = genai.GenerationConfig(
+    temperature=0.1,
+    top_p=1.0,
+    top_k=32,
+    candidate_count=1,
+    max_output_tokens=512,  # 8192,
+)
 
 def hello_my_name_is_markiplier(text):
     for line in text.split('\n'):
@@ -16,13 +26,16 @@ def hello_my_name_is_markiplier(text):
             sleep(0.05)
         yield '\n'
 
-
 st.title("LLM Playground")
 st.markdown("""Below, we have the ability to query GPT-4o using 0-shot and few-shot CoT prompting.
 For more information on how prompting helps LLMs, visit the corresponding pages in the sidebar.""")
 ailment = st.multiselect("Pick a disease to diagnose:", ['Glaucoma', 'Diabetic Retinopathy', 'Cataract'])
 LLM_mode = st.multiselect("Pick a prompting method:", ['0-shot', 'Few-shot'])
 API_Key = st.text_input("API Key here 👇", placeholder="Type API Key (Ask us for ours!)")
+client = openai.OpenAI(api_key=API_Key)
+@retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(20))
+def completion_with_backoff(**kwargs):
+    return client.chat.completions.create(**kwargs)
 
 if LLM_mode == '0-shot':
     message = [
@@ -56,6 +69,16 @@ for i in message:
             st.write(i['content'])
 
 if LLM_mode == '0-shot':
-    st.button('Generate GPT-4o output (0-shot):')
+    if st.button('Generate GPT-4o output (0-shot):'):
+        response = completion_with_backoff(
+            model="gpt-4o",
+            messages=message,
+            max_tokens=300,
+        )
 if LLM_mode == 'Few-shot':
-    st.button('Generate GPT-4o output (few-shot):')
+    if st.button('Generate GPT-4o output (0-shot):'):
+        response = completion_with_backoff(
+            model="gpt-4o",
+            messages=message,
+            max_tokens=300,
+        )
