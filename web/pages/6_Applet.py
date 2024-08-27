@@ -331,7 +331,7 @@ if uploaded_file is not None:
             # explanation_condensed = get_explanation(image_content, most_common_element)
             chat_history = [
                 {'role': 'system',
-                 'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis."""
+                 'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis. This diagnosis is correct. Describe the key features of the retinal fundus image that led to the diagnosis."""
                 },
                 {"role": "user",
                  "content": [
