@@ -13,8 +13,11 @@ from openai import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 import base64
+from tenacity import (retry, stop_after_attempt, wait_random_exponential) #This is to repeatedly call the ChatGPT
+from collections import Counter
 
 
+client = openai.OpenAI()
 # Create a custom component that gets the window width
 def get_window_width():
     # Custom HTML/JS to get window width
@@ -238,20 +241,25 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 
 
 
-def get_explanation(image_content, predicted_label, confidence):   
+def get_explanation(image_content, predicted_label):   
     # Debugging statements
     if 'llm' not in st.session_state or st.session_state.llm is None:
         st.error("Explanation service is not initialized.")
         return "Explanation could not be retrieved."
     
     try:     
-        prompt = prompt_template.format(image_content=str(image_content), 
-                                        predicted_label=str(predicted_label), 
-                                        confidence=float(confidence))
-        st.write("Generated prompt:", prompt)  # Debugging: Show the generated prompt
-        response = st.session_state.llm(prompt)
-        explanation = response.strip()
-        return explanation
+        chat_history.append({"role": "user",
+            "content": [
+                {"type": "image", "image_base64": image_content},
+                {"type": "text", "text": f"Diagnosis: {predicted_label}"}
+        ]})
+        response = completion_with_backoff(
+            model="gpt-4o",
+            messages=chat_history,
+            max_tokens=300,
+        )
+        explaination = response.choices[0].message.content
+        return explaination
     except Exception as e:
         st.error(f"An error occurred while getting explanation: {e}")
         return "Explanation could not be retrieved."
@@ -285,6 +293,17 @@ else:
     st.write("API key has been set.")
     
 
+
+chat_history = [
+{'role': 'system',
+    'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis."""
+}
+]
+
+@retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(20))
+def completion_with_backoff(**kwargs):
+    return client.chat.completions.create(**kwargs)
+
 # Check if a file is uploaded
 if uploaded_file is not None:
     # Open the image
@@ -306,7 +325,7 @@ if uploaded_file is not None:
     
     img_tensor = preprocess(image)
     img_tensor = img_tensor.unsqueeze(0)  # Add batch dimension
-    
+    '''
     prompt_template = PromptTemplate(
         input_variables=["image_content", "predicted_label", "confidence"],
         template=(
@@ -314,6 +333,8 @@ if uploaded_file is not None:
             "Explain the features of the image that would lead the model to give this particular diagnosis.\n\n{image_content}"
         )
     )
+    '''
+
 
     if st.button('Click here for prediction'):
         with torch.no_grad():
@@ -336,11 +357,10 @@ if uploaded_file is not None:
 
         if st.session_state.api_key is not None:
             # Get explanations for each prediction
-            explanation_50 = get_explanation(encode_image(uploaded_file), predicted_labels[0], confidences[0] * 100)
-            explanation_34 = get_explanation(encode_image(uploaded_file), predicted_labels[1], confidences[1] * 100)
-            explanation_custom = get_explanation(encode_image(uploaded_file), predicted_labels[2], confidences[2] * 100)
+            counter = Counter(predicted_labels)
+            most_common_element, count = counter.most_common(1)[0]
+            explanation_condensed = get_explanation(encode_image(uploaded_file), most_common_element)
+            
             # Display explanations
-            st.write(f"Explanation for ResNet50 prediction: {explanation_50}")
-            st.write(f"Explanation for ResNet34 prediction: {explanation_34}")
-            st.write(f"Explanation for Custom ResNet prediction: {explanation_custom}")
+            st.write(f"Explanation: {explanation_condensed}")
             
