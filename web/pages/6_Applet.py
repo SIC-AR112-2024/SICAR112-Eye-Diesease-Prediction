@@ -322,32 +322,31 @@ if uploaded_file is not None:
             most_common_element, count = counter.most_common(1)[0]
             image_content = encode_image(uploaded_file)
             # explanation_condensed = get_explanation(image_content, most_common_element)
+            chat_history = [
+                {'role': 'system',
+                 'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis."""
+                },
+                {"role": "user",
+                 "content": [
+                    {"type": "image", "image_url": {'url':f'data:image/jpeg;base64,{image_content}'}},
+                    {"type": "text", "text": f"Diagnosis: {most_common_element}"}
+                ]}
+            ]
+            chat_history.append()
             
+            client = openai.OpenAI(api_key=api_key) #API KEY HERE
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=chat_history,
+                max_tokens=300,
+                stream=True
+            )
             with st.chat_message('human'):
                 st.write('You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis.')
                 st.write(f'Diagnosis: {most_common_element}')
                 st.image(uploaded_file)
             # Display explanations
             with st.chat_message('ai'):
-                chat_history = [
-                    {'role': 'system',
-                        'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis."""
-                    }
-                ]
-                
-                chat_history.append({"role": "user",
-                    "content": [
-                        {"type": "image", "image_url": {'url':f'data:image/jpeg;base64,{image_content}'}},
-                        {"type": "text", "text": f"Diagnosis: {most_common_element}"}
-                ]})
-                
-                client = openai.OpenAI(api_key=api_key) #API KEY HERE
-                response = client.chat.completions.create(
-                    model="gpt-4o",
-                    messages=chat_history,
-                    max_tokens=300,
-                    stream=True
-                )
                 st.write_stream(response)
 
 
