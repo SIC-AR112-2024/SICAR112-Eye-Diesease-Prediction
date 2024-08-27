@@ -271,9 +271,6 @@ if api_key:
         st.error(f"An error occurred: {e}")
 
 
-image_content = encode_image(uploaded_file)
-st.text(image_content)
-
 # Check if a file is uploaded
 if uploaded_file is not None:
     # Open the image
@@ -281,8 +278,6 @@ if uploaded_file is not None:
     
     # Display the image in the app
     #st.image(image, caption="Retinal Fundus Image", use_column_width=True)
-    
-    
     
     # Resize the image
     resized_image = image.resize((int(window_width/2), int(window_width/2)))
@@ -299,6 +294,11 @@ if uploaded_file is not None:
 
 
     if st.button('Click here for prediction'):
+
+        image_content = encode_image(uploaded_file)
+        st.text(image_content)
+
+
         with torch.no_grad():
             outputs = [model(img_tensor) for model in modelz]
 
