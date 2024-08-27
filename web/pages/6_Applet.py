@@ -337,7 +337,7 @@ if uploaded_file is not None:
                 
                 chat_history.append({"role": "user",
                     "content": [
-                        {"type": "image", "image_base64": image_content},
+                        {"type": "image", "image_url": {'url':f'data:image/jpeg;base64,{image_content}'}},
                         {"type": "text", "text": f"Diagnosis: {most_common_element}"}
                 ]})
                 
