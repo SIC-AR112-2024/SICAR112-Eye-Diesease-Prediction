@@ -24,7 +24,7 @@ st.markdown("""Below, we have the ability to query GPT-4o using 0-shot and few-s
 For more information on how prompting helps LLMs, visit the corresponding pages in the sidebar.""")
 ailment = st.multiselect("Pick a disease to diagnose:", ['Glaucoma', 'Diabetic Retinopathy', 'Cataract'])
 LLM_mode = st.multiselect("Pick a prompting method:", ['0-shot', 'Few-shot'])
-API_Key = st.text_input("API Key here 👇", placeholder="Type API Key (Ask us for ours!)")
+API_Key = st.text_input("API Key here:", placeholder="Type API Key (Ask us for ours!)")
 
 if LLM_mode == '0-shot':
     message = [
