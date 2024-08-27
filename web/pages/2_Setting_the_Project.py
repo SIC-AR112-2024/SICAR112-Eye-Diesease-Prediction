@@ -46,3 +46,14 @@ for i in range(len(urls)):
         st.image(image, caption=captions[i], use_column_width=True)
     else:
         st.error(f"Failed to load image. Status code: {response.status_code}")  # Display an error message
+        
+        
+st.subheader('Review of the current Literature')
+st.write('Utilising Artificial Intelligence (AI) in identifying eye diseases from retinal imaging is a rapidly developing area in research. Machine learning models, particularly deep learning algorithms, have shown great success in detecting and grading diabetic retinopathy from fundus images, and some are able to achieve performance comparable to or even surpassing that of experienced ophthalmologists in some cases. Currently, researchers are working on improving the accuracy, efficiency, and interpretability of these models. Some common diseases being targeted are age-related macular degeneration, glaucoma and diabetic retinopathy, of which the latter two are also covered by our models. Scientists are also applying novel architectures like Convolutional Neural Networks (CNN), which was also tested in our project. Currently, some challenges include, improving model generalization across diverse populations and imaging equipment, developing models that can work with limited labeled data, and enhancing interpretability and explainability of AI decisions. In our project, we have adopted more powerful Residual Network (ResNet) models which would be able to generate more accurate predictions with limited data. Regarding explainability, we strongly believe that this is an area where Large Language Models (LLMs) can be used in a multimodal AI system due to their ability to output understandable human language.')
+
+st.subheader('Relevant Papers')
+st.markdown("[1. Applications of deep learning for detecting ophthalmic diseases with ultrawide-field fundus images](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10754665/)")
+st.markdown("[2. Automated machine learning model for fundus image classification by health-care professionals with no coding experience](https://www.nature.com/articles/s41598-024-60807-y)")
+st.markdown("[3. Development of a Fundus Image-Based Deep Learning Diagnostic Tool for Various Retinal Diseases](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8142986/)")
+st.markdown("[4. A comprehensive review of artificial intelligence models for screening major retinal diseases](https://link.springer.com/article/10.1007/s10462-024-10736-z)")
+st.markdown("[5. Development and Validation of Deep Learning Models for Screening Multiple Abnormal Findings in Retinal Fundus Images](https://pubmed.ncbi.nlm.nih.gov/31281057/)")
