@@ -13,7 +13,7 @@ from openai import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 import base64
-from tenacity import (retry, stop_after_attempt, wait_random_exponential) #This is to repeatedly call the ChatGPT
+from tenacity import retry, stop_after_attempt, wait_random_exponential
 from collections import Counter
 
 
@@ -51,6 +51,8 @@ def load_labels(label_file):
 
 paths = ["models/resnet50.pth", "models/resnet34.pth", "models/ResNet-AR112.pth"]
 
+def initialize_openai(api_key):
+    openai.api_key = api_key
 
 #Apparently required classes
 class EnsembleModel(nn.Module):
@@ -239,23 +241,41 @@ preprocess = transforms.Compose([
 # File uploader for images
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
+@retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(20))
+def completion_with_backoff(model, messages, max_tokens=300):
+    try:
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages,
+            max_tokens=max_tokens,
+            timeout=120  # Ensure this timeout is applied correctly
+        )
+        return response
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        raise
 
 
 def get_explanation(image_content, predicted_label):   
+    chat_history = [
+    {'role': 'system',
+        'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis."""
+    }
+    ]
     
-    
-    try:     
-        chat_history.append({"role": "user",
-            "content": [
-                {"type": "image", "image_base64": image_content},
-                {"type": "text", "text": f"Diagnosis: {predicted_label}"}
-        ]})
+       
+    chat_history.append({"role": "user",
+        "content": [
+            {"type": "image", "image_base64": image_content},
+            {"type": "text", "text": f"Diagnosis: {predicted_label}"}
+    ]})
+    try:
         response = completion_with_backoff(
             model="gpt-4o",
             messages=chat_history,
             max_tokens=300,
         )
-        explaination = response.choices[0].message.content
+        explaination = response.choices[0].message["content"].strip()
         return explaination
     except Exception as e:
         st.error(f"An error occurred while getting explanation: {e}")
@@ -267,7 +287,7 @@ def get_explanation(image_content, predicted_label):
 st.api_key = st.text_input("Enter your OpenAI API key:", type="password")
 if st.api_key:
     try:
-        client = openai.OpenAI(api_key=st.api_key)
+        initialize_openai(st.api_key)
         st.success("API key successfully set.")
     except Exception as e:
         st.error(f"An error occurred: {e}")
@@ -275,15 +295,9 @@ if st.api_key:
     
 
 
-chat_history = [
-{'role': 'system',
-    'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis."""
-}
-]
 
-@retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(20))
-def completion_with_backoff(**kwargs):
-    return client.chat.completions.create(**kwargs)
+
+
 
 # Check if a file is uploaded
 if uploaded_file is not None:
