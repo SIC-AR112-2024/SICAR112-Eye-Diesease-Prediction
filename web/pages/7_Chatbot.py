@@ -32,10 +32,6 @@ For more information on how prompting helps LLMs, visit the corresponding pages 
 ailment = st.multiselect("Pick a disease to diagnose:", ['Glaucoma', 'Diabetic Retinopathy', 'Cataract'])
 LLM_mode = st.multiselect("Pick a prompting method:", ['0-shot', 'Few-shot'])
 API_Key = st.text_input("API Key here 👇", placeholder="Type API Key (Ask us for ours!)")
-client = openai.OpenAI(api_key=API_Key)
-@retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(20))
-def completion_with_backoff(**kwargs):
-    return client.chat.completions.create(**kwargs)
 
 if LLM_mode == '0-shot':
     message = [
@@ -70,15 +66,23 @@ for i in message:
 
 if LLM_mode == '0-shot':
     if st.button('Generate GPT-4o output (0-shot):'):
-        response = completion_with_backoff(
+        client = openai.OpenAI(api_key=API_Key)
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=message,
             max_tokens=300,
+            stream=True
         )
+        with st.chat_message('ai'):
+            st.write_stream(response)
 if LLM_mode == 'Few-shot':
     if st.button('Generate GPT-4o output (0-shot):'):
-        response = completion_with_backoff(
+        client = openai.OpenAI(api_key=API_Key)
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=message,
             max_tokens=300,
+            stream=True
         )
+        with st.chat_message('ai'):
+            st.write_stream(response)
