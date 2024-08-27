@@ -17,7 +17,7 @@ from tenacity import (retry, stop_after_attempt, wait_random_exponential) #This 
 from collections import Counter
 
 
-client = openai.OpenAI()
+
 # Create a custom component that gets the window width
 def get_window_width():
     # Custom HTML/JS to get window width
@@ -356,6 +356,7 @@ if uploaded_file is not None:
         
 
         if st.session_state.api_key is not None:
+            client = openai.OpenAI()
             # Get explanations for each prediction
             counter = Counter(predicted_labels)
             most_common_element, count = counter.most_common(1)[0]
