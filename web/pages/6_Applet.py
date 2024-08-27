@@ -358,7 +358,8 @@ if uploaded_file is not None:
             # Get explanations for each prediction
             counter = Counter(predicted_labels)
             most_common_element, count = counter.most_common(1)[0]
-            explanation_condensed = get_explanation(encode_image(uploaded_file), most_common_element)
+            image_content = encode_image(uploaded_file)
+            explanation_condensed = get_explanation(image_content, most_common_element)
             
             # Display explanations
             st.write(f"Explanation: {explanation_condensed}")
