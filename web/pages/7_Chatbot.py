@@ -19,13 +19,6 @@ config = genai.GenerationConfig(
     max_output_tokens=512,  # 8192,
 )
 
-def hello_my_name_is_markiplier(text):
-    for line in text.split('\n'):
-        for word in text.split(' '):
-            yield word + ' '
-            sleep(0.05)
-        yield '\n'
-
 st.title("LLM Playground")
 st.markdown("""Below, we have the ability to query GPT-4o using 0-shot and few-shot CoT prompting.
 For more information on how prompting helps LLMs, visit the corresponding pages in the sidebar.""")
