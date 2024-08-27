@@ -57,3 +57,6 @@ st.markdown("[2. Automated machine learning model for fundus image classificatio
 st.markdown("[3. Development of a Fundus Image-Based Deep Learning Diagnostic Tool for Various Retinal Diseases](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8142986/)")
 st.markdown("[4. A comprehensive review of artificial intelligence models for screening major retinal diseases](https://link.springer.com/article/10.1007/s10462-024-10736-z)")
 st.markdown("[5. Development and Validation of Deep Learning Models for Screening Multiple Abnormal Findings in Retinal Fundus Images](https://pubmed.ncbi.nlm.nih.gov/31281057/)")
+st.markdown("[6. Effectiveness of artificial intelligence screening in preventing vision loss from diabetes: a policy model](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10042864/)")
+st.markdown("[7. Prevalence, Risk Factors, and Impact of Undiagnosed Visually Significant Cataract: The Singapore Epidemiology of Eye Diseases Study](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5271362/#:~:text=The%20overall%20age%2Dstandardized%20prevalence,aged%2060%20years%20or%20older.)")
+st.markdown("[Implementing and evaluating a fully functional AI-enabled model for chronic eye disease screening in a real clinical environment](https://bmcophthalmol.biomedcentral.com/articles/10.1186/s12886-024-03306-y)")
