@@ -188,7 +188,6 @@ class ResidualBlock(nn.Module):
         out = F.relu(out)
         return out
 
-
 # Load the pre-trained ResNet model
 def load_model1(MODEL_PATH):
     model = models.resnet50()
@@ -243,9 +242,9 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 
 def get_explanation(image_content, predicted_label):   
     chat_history = [
-    {'role': 'system',
-        'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis."""
-    }
+        {'role': 'system',
+            'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis."""
+        }
     ]
     
        
@@ -254,10 +253,11 @@ def get_explanation(image_content, predicted_label):
             {"type": "image", "image_base64": image_content},
             {"type": "text", "text": f"Diagnosis: {predicted_label}"}
     ]})
+     
     
-   
-    try:
-        response = openai.chat.completions.create(
+    try: 
+        client = openai.OpenAI(api_key=api_key) #API KEY HERE
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=chat_history,
             max_tokens=300
@@ -273,24 +273,13 @@ def get_explanation(image_content, predicted_label):
     
     
 # Initialize session state variables
-
-st.api_key = st.text_input("Enter your OpenAI API key:", type="password")
-if st.api_key:
+api_key = st.text_input("Enter your OpenAI API key:", type="password")
+if api_key:
     try:
-        
-        
-        openai.api_key=st.api_key,  # this is also the default, it can be omitted
-    
+        openai.api_key=api_key,  # this is also the default, it can be omitted
         st.success("API key successfully set.")
     except Exception as e:
         st.error(f"An error occurred: {e}")
-
-    
-
-
-
-
-
 
 # Check if a file is uploaded
 if uploaded_file is not None:
@@ -335,7 +324,7 @@ if uploaded_file is not None:
         
         
 
-        if st.api_key is not None:
+        if api_key is not None:
             # Get explanations for each prediction
             counter = Counter(predicted_labels)
             most_common_element, count = counter.most_common(1)[0]
@@ -344,4 +333,3 @@ if uploaded_file is not None:
             
             # Display explanations
             st.write(f"Explanation: {explanation_condensed}")
-            
