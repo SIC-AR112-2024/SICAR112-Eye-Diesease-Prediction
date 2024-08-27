@@ -242,28 +242,7 @@ preprocess = transforms.Compose([
 # File uploader for images
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
-@retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(20))
-def completion_with_backoff(model, messages, max_tokens=300):
-    try:
-        response = openai.ChatCompletion.create(
-            model=model,
-            messages=messages,
-            max_tokens=max_tokens,
-            timeout=120  # Ensure this timeout is applied correctly
-        )
-        return response
-    except openai.error.InvalidRequestError as e:
-        print(f"Invalid request: {e}")
-        return None
-    except openai.error.AuthenticationError as e:
-        print(f"Authentication error: {e}")
-        return None
-    except openai.error.APIError as e:
-        print(f"API error: {e}")
-        return None
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return None
+
 
 def get_explanation(image_content, predicted_label):   
     chat_history = [
@@ -279,18 +258,17 @@ def get_explanation(image_content, predicted_label):
             {"type": "text", "text": f"Diagnosis: {predicted_label}"}
     ]})
     
-    client = OpenAI()
    
-    response = openai.chat.completions.create(
-        model="gpt-4o",
-        messages=chat_history,
-        max_tokens=300,
-    )
-    if response:
-        explaination = response.choices[0].message["content"].strip()
-        return explaination
-    else:
-        st.error(f"An error occurred while getting explanation: {e}")
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-4o",
+            messages=chat_history,
+            max_tokens=300
+        )
+        explanation = response.choices[0].message["content"].strip()
+        return explanation
+    except openai.error.OpenAIError as e:
+        st.error(f"An OpenAI API error occurred: {e}")
         return "Explanation could not be retrieved."
     
     
