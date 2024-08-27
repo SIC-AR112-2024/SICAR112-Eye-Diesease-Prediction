@@ -338,19 +338,19 @@ if uploaded_file is not None:
             ]
             #chat_history.append()
             st.text(image_content)
-            client = openai.OpenAI(api_key=api_key) #API KEY HERE
-            response = client.chat.completions.create(
-                model="gpt-4o",
-                messages=chat_history,
-                stream=True
-            )
-            with st.chat_message('human'):
-                st.write('You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis.')
-                st.write(f'Diagnosis: {most_common_element}')
-                st.image(uploaded_file)
-            # Display explanations
-            with st.chat_message('ai'):
-                st.write_stream(response)
+            # client = openai.OpenAI(api_key=api_key) #API KEY HERE
+            # response = client.chat.completions.create(
+            #     model="gpt-4o",
+            #     messages=chat_history,
+            #     stream=True
+            # )
+            # with st.chat_message('human'):
+            #     st.write('You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis.')
+            #     st.write(f'Diagnosis: {most_common_element}')
+            #     st.image(uploaded_file)
+            # # Display explanations
+            # with st.chat_message('ai'):
+            #     st.write_stream(response)
 
 
 # chat_history = [
