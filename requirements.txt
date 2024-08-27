@@ -2,9 +2,8 @@ streamlit
 torch
 torchvision
 openai
-langchain
 regex
 tenacity
 seaborn
 scikit-learn
-langchain_community
+google-generativeai

@@ -1,6 +1,13 @@
-def query_0_shot(query, key):
-    ans = ''
-    return ans
+import google.generativeai as genai
+from openai import OpenAI
+def query_0_shot(query, key, configs):
+    model = OpenAI(
+        model_name="gemini-1.5-flash",
+        generation_config = configs,
+        system_instruction="You are a medical student. You will be given several retinal fundus images as a test. If the eye is healthy, say \"HEALTHY\". If not, tell me whether the patient has \"CATARACT\", \"DIABETIC RETINOPATHY\", or \"GLAUCOMA\". Strictly provide 1 word responses.",
+        stream=True
+    )
+
 
 def init_prompt_zero_shot(URL):
     return [
