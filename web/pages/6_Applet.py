@@ -257,7 +257,7 @@ def get_explanation(image_content, predicted_label):
     
    
     try:
-        response = client.chat.completions.create(
+        response = openai.chat.completions.create(
             model="gpt-4o",
             messages=chat_history,
             max_tokens=300
@@ -278,9 +278,9 @@ st.api_key = st.text_input("Enter your OpenAI API key:", type="password")
 if st.api_key:
     try:
         
-        client = OpenAI(
-        api_key=st.api_key,  # this is also the default, it can be omitted
-        )
+        
+        openai.api_key=st.api_key,  # this is also the default, it can be omitted
+    
         st.success("API key successfully set.")
     except Exception as e:
         st.error(f"An error occurred: {e}")
