@@ -284,7 +284,7 @@ if not st.session_state.api_key_entered:
 else:
     st.write("API key has been set.")
     
-
+print('change')
 
 # Check if a file is uploaded
 if uploaded_file is not None:
