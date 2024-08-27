@@ -264,8 +264,11 @@ def get_explanation(image_content, predicted_label):
         )
         explanation = response.choices[0].message["content"].strip()
         return explanation
-    except openai.error.OpenAIError as e:
+    except openai.OpenAIError as e:
         st.error(f"An OpenAI API error occurred: {e}")
+        return "Explanation could not be retrieved."
+    except Exception as e:
+        st.error(f"An unexpected error occurred: {e}")
         return "Explanation could not be retrieved."
     
     
