@@ -328,7 +328,11 @@ if uploaded_file is not None:
                 },
                 {"role": "user",
                  "content": [
-                    {"type": "image", "image_url": {'url':f'data:image/jpeg;base64,{image_content}'}},
+                    {"type": "image_url", 
+                     "image_url": {
+                         'url':f'data:image/jpeg;base64,{image_content}'
+                        }
+                    },
                     {"type": "text", "text": f"Diagnosis: {most_common_element}"}
                 ]}
             ]
@@ -338,7 +342,6 @@ if uploaded_file is not None:
             response = client.chat.completions.create(
                 model="gpt-4o",
                 messages=chat_history,
-                max_tokens=300,
                 stream=True
             )
             with st.chat_message('human'):
