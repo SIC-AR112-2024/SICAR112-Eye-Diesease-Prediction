@@ -6,3 +6,7 @@ st.write("We utilised a dataset we found on Kaggle, while our coding was carried
 
 st.subheader("Acknowledgements")
 st.write("We would like to thank our mentor, Mr Tan Pang Jin, for the guidance and help he has provided to us throughout this project.")
+
+st.subheader("Challenges")
+
+st.subheader("Photo Repo")
