@@ -1,5 +1,5 @@
 import streamlit as st
-st.title("Chain of thought few shot Model Page")
+st.markdown("#Chain of thought few shot Model Page")
 st.markdown("""Here, we utilise a :red[Chain-of-Thought (CoT)] prompting framework that allows us to make our LLM reason through its response before returning an output.
 As outlined in the landmark paper on CoT prompting ([Wei et. al., Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/pdf/2201.11903)), CoT prompting allows LLMs to looks at a few examples (i.e. few-shot prompting) and the thought process behind them. The paper studies several LLMs on several different models such as PaLM and LaMDA, as well as GPT-3
 In the paper above, CoT prompting serves to:
