@@ -18,6 +18,7 @@ from collections import Counter
 
 
 
+
 # Create a custom component that gets the window width
 def get_window_width():
     # Custom HTML/JS to get window width
