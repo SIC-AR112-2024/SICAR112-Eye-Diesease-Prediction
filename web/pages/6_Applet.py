@@ -332,7 +332,7 @@ if uploaded_file is not None:
                     {"type": "text", "text": f"Diagnosis: {most_common_element}"}
                 ]}
             ]
-            chat_history.append()
+            #chat_history.append()
             
             client = openai.OpenAI(api_key=api_key) #API KEY HERE
             response = client.chat.completions.create(
