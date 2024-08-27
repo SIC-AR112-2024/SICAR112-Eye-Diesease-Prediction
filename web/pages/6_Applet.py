@@ -242,10 +242,7 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 
 
 def get_explanation(image_content, predicted_label):   
-    # Debugging statements
-    if 'llm' not in st.session_state or st.session_state.llm is None:
-        st.error("Explanation service is not initialized.")
-        return "Explanation could not be retrieved."
+    
     
     try:     
         chat_history.append({"role": "user",
@@ -266,26 +263,16 @@ def get_explanation(image_content, predicted_label):
     
     
 # Initialize session state variables
-if 'api_key_entered' not in st.session_state:
-    st.session_state.api_key_entered = False
-if 'api_key' not in st.session_state:
-    st.session_state.api_key = ""
-if 'llm' not in st.session_state:
-    st.session_state.llm = None
 
-# Display input field only if API key hasn't been entered yet
-if not st.session_state.api_key_entered:
-    st.session_state.api_key = st.text_input("Enter your OpenAI API key:", type="password")
-    if st.session_state.api_key:
-        st.session_state.api_key_entered = True
-        try:
-            openai.api_key = st.session_state.api_key
-            client = openai.OpenAI()
-            st.success("API key successfully set.")
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
-else:
-    st.write("API key has been set.")
+st.api_key = st.text_input("Enter your OpenAI API key:", type="password")
+if st.api_key:
+    try:
+        openai.api_key = st.api_key
+        client = openai.OpenAI(st.api_key)
+        st.success("API key successfully set.")
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+
     
 
 
@@ -320,15 +307,7 @@ if uploaded_file is not None:
     
     img_tensor = preprocess(image)
     img_tensor = img_tensor.unsqueeze(0)  # Add batch dimension
-    '''
-    prompt_template = PromptTemplate(
-        input_variables=["image_content", "predicted_label", "confidence"],
-        template=(
-            "The model predicted that the following image has the disease '{predicted_label}' with a confidence of {confidence:.2f}%."
-            "Explain the features of the image that would lead the model to give this particular diagnosis.\n\n{image_content}"
-        )
-    )
-    '''
+
 
 
     if st.button('Click here for prediction'):
