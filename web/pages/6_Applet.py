@@ -311,9 +311,9 @@ if uploaded_file is not None:
         st.write(f"Predicted Label for the resnet50 model: {predicted_labels[0]} with confidence: {confidences[0] * 100:.2f}%")
         st.write(f"Predicted Label for the resnet34 model: {predicted_labels[1]} with confidence: {confidences[1] * 100:.2f}%")
         st.write(f"Predicted Label for the ResNet-AR112 Ensemble model: {predicted_labels[2]} with confidence: {confidences[2] * 100:.2f}%")
-        st.write(image_content)
+        # st.write(image_content)
 
-        if False: #api_key is not None:
+        if api_key is not None:
             # Get explanations for each prediction
             counter = Counter(predicted_labels)
             most_common_element, count = counter.most_common(1)[0]
@@ -334,21 +334,22 @@ if uploaded_file is not None:
                     {"type": "text", "text": f"Diagnosis: {most_common_element}"}
                 ]}
             ]
+
             #chat_history.append()
             
-            # client = openai.OpenAI(api_key=api_key) #API KEY HERE
-            # response = client.chat.completions.create(
-            #     model="gpt-4o",
-            #     messages=chat_history,
-            #     stream=True
-            # )
-            # with st.chat_message('human'):
-            #     st.write('You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis.')
-            #     st.write(f'Diagnosis: {most_common_element}')
-            #     st.image(uploaded_file)
-            # # Display explanations
-            # with st.chat_message('ai'):
-            #     st.write_stream(response)
+            client = openai.OpenAI(api_key=api_key) #API KEY HERE
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=chat_history,
+                stream=True
+            )
+            with st.chat_message('human'):
+                st.write('You are a medical student. You will be given a retinal fundus image, along with its diagnosis and its confidence value. Describe key features in the image that would lead to the diagnosis.')
+                st.write(f'Diagnosis: {most_common_element}')
+                st.image(uploaded_file)
+            # Display explanations
+            with st.chat_message('ai'):
+                st.write_stream(response)
 
 
 # chat_history = [
