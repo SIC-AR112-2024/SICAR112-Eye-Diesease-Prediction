@@ -251,10 +251,18 @@ def completion_with_backoff(model, messages, max_tokens=300):
             timeout=120  # Ensure this timeout is applied correctly
         )
         return response
+    except openai.error.InvalidRequestError as e:
+        print(f"Invalid request: {e}")
+        return None
+    except openai.error.AuthenticationError as e:
+        print(f"Authentication error: {e}")
+        return None
+    except openai.error.APIError as e:
+        print(f"API error: {e}")
+        return None
     except Exception as e:
         print(f"An error occurred: {e}")
-        raise
-
+        return None
 
 def get_explanation(image_content, predicted_label):   
     chat_history = [
@@ -269,15 +277,18 @@ def get_explanation(image_content, predicted_label):
             {"type": "image", "image_base64": image_content},
             {"type": "text", "text": f"Diagnosis: {predicted_label}"}
     ]})
-    try:
-        response = completion_with_backoff(
-            model="gpt-4o",
-            messages=chat_history,
-            max_tokens=300,
-        )
+    
+    client = OpenAI()
+   
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=chat_history,
+        max_tokens=300,
+    )
+    if response:
         explaination = response.choices[0].message["content"].strip()
         return explaination
-    except Exception as e:
+    else:
         st.error(f"An error occurred while getting explanation: {e}")
         return "Explanation could not be retrieved."
     
