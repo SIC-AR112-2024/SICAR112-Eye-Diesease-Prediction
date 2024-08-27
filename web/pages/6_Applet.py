@@ -247,29 +247,21 @@ def get_explanation(image_content, predicted_label):
         }
     ]
     
-       
     chat_history.append({"role": "user",
         "content": [
             {"type": "image", "image_base64": image_content},
             {"type": "text", "text": f"Diagnosis: {predicted_label}"}
     ]})
-     
     
-    try: 
-        client = openai.OpenAI(api_key=api_key) #API KEY HERE
-        response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=chat_history,
-            max_tokens=300
-        )
-        explanation = response.choices[0].message["content"].strip()
-        return explanation
-    except openai.OpenAIError as e:
-        st.error(f"An OpenAI API error occurred: {e}")
-        return "Explanation could not be retrieved."
-    except Exception as e:
-        st.error(f"An unexpected error occurred: {e}")
-        return "Explanation could not be retrieved."
+    client = openai.OpenAI(api_key=api_key) #API KEY HERE
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=chat_history,
+        max_tokens=300,
+        stream=True
+    )
+    for chunk in response:
+        yield chunk
     
     
 # Initialize session state variables
