@@ -11,7 +11,7 @@ images = {
     'Diabetic Retinopathy':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Diabetic Retinopathy
     'Cataract':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true'} #Cataract
 message = []
-def init_prompt_CoT(URL):
+def init_prompt_CoT():
     return [
     {'role': 'system',
         'content': """You are a medical student. You will be given several retinal fundus images as a test.
