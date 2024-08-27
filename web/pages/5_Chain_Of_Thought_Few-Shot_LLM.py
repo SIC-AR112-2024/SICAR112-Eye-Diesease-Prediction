@@ -59,7 +59,8 @@ for i in message:
             st.write(i['content'])
     elif i['role'] == 'PROMPT':
         with st.chat_message('USER PROMPT', avatar = '❓'):
-            st.write(i['content'])
+            st.write(i['content'][0]['text'])
+            st.image(i['content'][1]['image_url']['url'])
     else:
         with st.chat_message('ai'):
             st.write(i['content'])
