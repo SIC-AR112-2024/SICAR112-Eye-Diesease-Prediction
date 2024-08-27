@@ -337,7 +337,7 @@ if uploaded_file is not None:
                 ]}
             ]
             #chat_history.append()
-            
+            st.text(image_content)
             client = openai.OpenAI(api_key=api_key) #API KEY HERE
             response = client.chat.completions.create(
                 model="gpt-4o",
