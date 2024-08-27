@@ -280,12 +280,7 @@ if not st.session_state.api_key_entered:
         st.session_state.api_key_entered = True
         try:
             openai.api_key = st.session_state.api_key
-            st.session_state.llm = ChatOpenAI(
-                model="gpt-4o",
-                temperature=0,
-                api_key=openai.api_key,
-                request_timeout=120  # Increased timeout to handle potential delays
-            )
+            client = openai.OpenAI()
             st.success("API key successfully set.")
         except Exception as e:
             st.error(f"An error occurred: {e}")
@@ -356,7 +351,6 @@ if uploaded_file is not None:
         
 
         if st.session_state.api_key is not None:
-            client = openai.OpenAI()
             # Get explanations for each prediction
             counter = Counter(predicted_labels)
             most_common_element, count = counter.most_common(1)[0]
