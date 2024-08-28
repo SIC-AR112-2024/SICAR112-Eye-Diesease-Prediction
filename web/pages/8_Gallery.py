@@ -1,5 +1,5 @@
 import streamlit as st
-st.title("Gallery")
+st.title("Last words")
 
 st.subheader("Sources / Software")
 st.write("We utilised a dataset we found on Kaggle, while our coding was carried out on Google Colab and VSCode. Our assets and code files are stored in Github, and we used Git and Git LFS to store our model .pth files in our Github.")
@@ -65,4 +65,3 @@ st.image('web/more_images/Epoch.jpeg', caption='Training...')
 st.video('web/more_images/Time_Lapse1.mp4')
 st.video('web/more_images/Time_Lapse2.mp4')
 st.image('web/more_images/Improvement.jpeg', caption="The machine learns")
-st.image('web/more_images/Central_Limit_Theorem.jpeg', caption="100% accuracy on a test dataset of 5")
