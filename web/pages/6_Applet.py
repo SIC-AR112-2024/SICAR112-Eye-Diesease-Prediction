@@ -288,8 +288,13 @@ if uploaded_file is not None:
     # Display the image in the app
     #st.image(image, caption="Retinal Fundus Image", use_column_width=True)
     
-    # Resize the image
-    resized_image = image.resize((int(window_width/2), int(window_width/2)))
+    # Assuming 'image' is already opened
+    width, height = image.size
+    new_width = 200
+    new_height = int(200 * height / width)  # Calculate new height to maintain aspect ratio
+
+    # Resize with a resampling filter (optional)
+    resized_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
     
     # Display the resized image
     st.image(resized_image, caption="Retinal Fundus Image", use_column_width=False)
