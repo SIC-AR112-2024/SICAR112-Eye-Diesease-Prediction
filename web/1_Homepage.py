@@ -6,7 +6,7 @@ import streamlit.components.v1 as components
 
 
 image = Image.open('web/more_images/Logo_Image.png')
-resized_image = image.resize((int(image.width/2), int(image.height/2)))
+resized_image = image.resize((int(image.width/3.5), int(image.height/3.5)))
 
     
 # Display the resized image
