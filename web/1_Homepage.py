@@ -1,7 +1,7 @@
 import streamlit as st
 #home page
 #st.set_up_config(page_icon='web/more_images/Gap_Sem_Logo.png')
-st.image('web/more_images/Gap_Sem_Logo.png')
+st.image('web/more_images/Logo_Image.png')
 st.title("SIC AR112 2024 Landing Page")
 st.write("Welcome to the home page of our SIC Project - AR112!")
 
