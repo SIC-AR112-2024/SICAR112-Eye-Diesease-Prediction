@@ -31,6 +31,7 @@ st.subheader("Photo Repo")
 
 st.write('The environment')
 st.image('web/more_images/SMU_School_of_Economics.jpeg', caption="The building next to us")
+st.video('web/more_images/Road.mp4')
 st.image('web/more_images/Subway1.jpeg', caption="Our reporting venue")
 st.image('web/more_images/Subway2.jpeg')
 
@@ -53,11 +54,15 @@ st.image('web/more_images/CY_anger.jpeg')
 st.image('web/more_images/SBS1.jpeg')
 st.image('web/more_images/SBS2.jpeg')
 st.image('web/more_images/SBS_anger.jpeg')
+st.video('web/more_images/SBS.mp4')
 
 st.write("Running our models")
 
 st.image('web/more_images/!pip_install.jpeg')
 st.image('web/more_images/Error.jpeg', caption="One of many errors")
+st.video('web/more_images/Error.mp4')
 st.image('web/more_images/Epoch.jpeg', caption='Training...')
+st.video('web/more_images/Time_Lapse1.mp4')
+st.video('web/more_images/Time_Lapse2.mp4')
 st.image('web/more_images/Improvement.jpeg', caption="The machine learns")
 st.image('web/more_images/Central_Limit_Theorem.jpeg', caption="100% accuracy on a test dataset of 5")
