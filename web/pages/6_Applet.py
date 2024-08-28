@@ -33,6 +33,8 @@ def get_window_width():
         width = st.session_state.get("windowWidth", 800)  # Default width if not set
     return width
 
+prompt = """You are a medical student. You will be given a retinal fundus image, along with its diagnosis. This diagnosis is correct. Describe the image in 100 words, highlighting the key features of the retinal fundus image that led to the diagnosis."""
+
 # Display the window width
 window_width = get_window_width()
 
@@ -241,7 +243,7 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 def get_explanation(image_content, predicted_label):   
     chat_history = [
         {'role': 'system',
-            'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis. This diagnosis is correct. Describe the key features of the retinal fundus image that led to the diagnosis."""
+            'content': prompt
         }
     ]
     
@@ -331,7 +333,7 @@ if uploaded_file is not None:
             # explanation_condensed = get_explanation(image_content, most_common_element)
             chat_history = [
                 {'role': 'system',
-                 'content': """You are a medical student. You will be given a retinal fundus image, along with its diagnosis. This diagnosis is correct. Describe the key features of the retinal fundus image that led to the diagnosis."""
+                 'content': prompt
                 },
                 {"role": "user",
                  "content": [
