@@ -24,7 +24,7 @@ def get_window_width():
 
 window_width = get_window_width()
 image = Image.open('web/more_images/Logo_Image.png')
-resized_image = image.resize((int(window_width/2), int(window_width/2)))
+resized_image = image.resize((int(image.width/2), int(image.height/2)))
 
     
 # Display the resized image
