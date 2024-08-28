@@ -24,9 +24,9 @@ st.write("From some research, we noted the following characteristics in the reti
 # Bulleted list with bold words using markdown
 st.markdown("""
 - **Cataract:** The lens would usually appear cloudy or opaque in the retinal fundus image, causing the whole image to be blurry in general.
-<br>
+<br><br>
 - **Diabetic Retinopathy:** Small red dots scattered along the retina in the fundus image are characteristic of tiny, bulging blood vessels in the eye called microaneurysms. Cotton wool white spots on the retinal image can also signify inflammation and retinal damage caused by the disease. In addition, bleeding may be observed in the retinal fundus image when the microaneurysms rupture, causing haemorrhages. Soft and hard exudates amy also be present on the image.
-<br>
+<br><br>
 - **Glaucoma:** The image shows an enlarged optic cup, causing the optic nerve head to appear enlarged and cupped in shape. This results in a higher optic cup to disk ratio. This also causes the thinning of the neuroretinal rim as the thickness of the retinal nerve fibre layer decreases. In addition, the retinal fundus images may display retinal blood vessel asymmetry at the optic cup.
 """, unsafe_allow_html=True)
 
@@ -51,9 +51,9 @@ for i in range(len(urls)):
 st.subheader('Understanding the Biology behind each of the diseases.')
 st.markdown("""
 - **Cataract:** Cataracts are usually caused by natural aging processes in the body. These ageing processes causes the lens in the human eye to be less flexible, less clear and thicker, and may cause proteins and fibres within the lenses to break down and clump together. This results in the lens becoming cloudy and opaque, which blurs one's vision. Past eye surgery and medical conditions such as diabetes may also lead to cataracts.
-<br>
+<br><br>
 - **Diabetic Retinopathy:** Diabetic retinopathy is a result of diabetes, more specifically diabetes mellitus, which results in elevated levels of blood glucose concentration due to the body's natural inability to control it. This excess blood sugar decreases the elasticity of blood vessels and causes them to narrow, which would decrease blood flow through these blood vessels. Hence, the tiny blood vessels that supply blood to nourish the retina with essential nutrients become clogged. This presents itself in the retinal fundus image as small red spots (microaneurysms). Eventually, these blood vessels become blocked, which would cut the retina off from its blood supply. To remedy this problem, the eye attempts to grow new blood vessels (neovascularisation / angiogenesis) to connect the retina to the circulatory system. This is for the retina to be able to still receive the essential nutrients required for its survival from the blood. However, these new blood vessels are leaky and are prone to ruptures and bleeding, causing visible bleeding (haemorrhages) to be sometimes present in the retinal fundus image. Hard exudates consisting of lipoproteins and other proteins that leak out from these blood vessels may be apparent on such a retinal fundus image. Inflammation in the eye may result in white lesions, also called cotton wool spots or soft exudates, that appear on the retinal fundus image.
-<br>
+<br><br>
 - **Glaucoma:** Glaucoma is caused by the build up of fluid in the aqueous and vitreous humor of the eye due to the inability of the eye to drain fluid properly. This results in increasing pressure being exerted on the back of the eye, where the optic disk is located. This additional pressure acts on the optic disk, of which the optic nerve passes through it via a central depression called the optic cup, and damages the optic nerve. This leads to increased optic nerve cupping and the optic cup to disk ratio increases. This can be seen on the retinal fundus image by the evidence of a larger than normal bright white circle in the middle of a dimmer white ring. This may result in the retinal blood vessels taking on an asymmetrical arrangement, which would appear on the retinal fundus image.
 """, unsafe_allow_html=True)   
         
