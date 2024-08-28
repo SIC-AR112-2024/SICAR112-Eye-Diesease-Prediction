@@ -1,5 +1,5 @@
 import streamlit as st
-st.title("Last words")
+st.title("Gallery")
 
 st.subheader("Sources / Software")
 st.write("We utilised a dataset we found on Kaggle, while our coding was carried out on Google Colab and VSCode. Our assets and code files are stored in Github, and we used Git and Git LFS to store our model .pth files in our Github.")
