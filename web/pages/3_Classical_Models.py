@@ -22,7 +22,7 @@ response = requests.get(url0)
 if response.status_code == 200:
     image = Image.open(BytesIO(response.content))
     # Display the image using Streamlit
-    st.image(image, caption="This is the confusion matrix of our in house trained model.", use_column_width=True)
+    st.image(image, caption="Table of the accuracy results of our various models.", use_column_width=True)
 else:
     st.error(f"Failed to load image. Status code: {response.status_code}")  # Display an error message
 
@@ -66,3 +66,5 @@ else:
     st.error(f"Failed to load image. Status code: {response.status_code}")  # Display an error message
 
 st.write("As seen, all the models achieved comparative high levels of accuracy at diagnosing each of the diseases. However, both the resnet50 and the resnet34 were relatively weaker at accurately diagnosing images of diabetic retinopathy. We believe that this is the case due to the wider range of symptoms for diabetic retinopathy, causing it to have a lack of significant tell tale signs for the model to identify. However, the ensemble model performed better in this aspect, which we believe could be due to the fact-checking mechanisms of combining the outputs of the three models together with appropriate weighting.")
+st.subheader("Comparisons with state-of-the-art models")
+st.write("")
