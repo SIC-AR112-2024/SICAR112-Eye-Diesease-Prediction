@@ -4,25 +4,7 @@ import streamlit.components.v1 as components
 #home page
 #st.set_up_config(page_icon='web/more_images/Gap_Sem_Logo.png')
 
-def get_window_width():
-    # Custom HTML/JS to get window width
-    component_code = """
-    <script>
-    window.onload = function() {
-        const width = window.innerWidth;
-        window.parent.postMessage({ type: 'windowWidth', width: width }, '*');
-    };
-    </script>
-    """
-    # Create an empty component to run the script
-    components.html(component_code, height=1)
-    
-    # Receive the window width from JavaScript
-    with st.expander("Hidden"):
-        width = st.session_state.get("windowWidth", 800)  # Default width if not set
-    return width
 
-window_width = get_window_width()
 image = Image.open('web/more_images/Logo_Image.png')
 resized_image = image.resize((int(image.width/2), int(image.height/2)))
 
