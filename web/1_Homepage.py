@@ -1,5 +1,5 @@
 import streamlit as st
-import PIL as Image
+from PIL import Image
 import streamlit.components.v1 as components
 #home page
 #st.set_up_config(page_icon='web/more_images/Gap_Sem_Logo.png')
