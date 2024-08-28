@@ -7,9 +7,9 @@ import google.generativeai as genai
 from tenacity import (retry, stop_after_attempt, wait_random_exponential)
 
 images = {
-    'Glaucoma':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Glaucoma
+    'Glaucoma':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/glaucoma/663.jpg?raw=true', #Glaucoma
     'Diabetic Retinopathy':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true', #Diabetic Retinopathy
-    'Cataract':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/diabetic_retinopathy/342.jpg?raw=true'} #Cataract
+    'Cataract':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/cataract/110.jpg?raw=true'} #Cataract
 message = []
 def init_prompt_CoT():
     return [
