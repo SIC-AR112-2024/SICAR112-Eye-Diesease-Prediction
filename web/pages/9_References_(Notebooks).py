@@ -1,11 +1,11 @@
 import streamlit as st
 st.title("References (Code Notebooks)")
 # Replace the below URL with the URL of your Google Colab notebook
-colab_url1 = "https://colab.research.google.com/drive/1S2ldAeXQZp6ibi5iTgoVxJgk8aoaZ4q6?authuser=1"
-colab_url2 = "https://colab.research.google.com/drive/1kTLscTYhSZGdjopvOEobtUMDqyR52wzJ?authuser=1"
-colab_url3 = "https://colab.research.google.com/drive/15irl1GBdtmZVS8x_ZOtIPEWCRkPuqtss?authuser=1"
-colab_url4 = "https://colab.research.google.com/drive/1P5lXRT2wdr-mSyY6x9okgag-WiBEjMID?authuser=1"
-colab_url5 = "https://colab.research.google.com/drive/1UdbB8DT5CELjWYlGlbP13jrDEmRvVxnr?authuser=1"
+colab_url1 = "https://colab.research.google.com/drive/1S2ldAeXQZp6ibi5iTgoVxJgk8aoaZ4q6?usp=sharing"
+colab_url2 = "https://colab.research.google.com/drive/1kTLscTYhSZGdjopvOEobtUMDqyR52wzJ?usp=sharing"
+colab_url3 = "https://colab.research.google.com/drive/15irl1GBdtmZVS8x_ZOtIPEWCRkPuqtss?usp=sharing"
+colab_url4 = "https://colab.research.google.com/drive/1P5lXRT2wdr-mSyY6x9okgag-WiBEjMID?usp=sharing"
+colab_url5 = "https://colab.research.google.com/drive/1UdbB8DT5CELjWYlGlbP13jrDEmRvVxnr?usp=sharing"
 github_url = "https://github.com/SIC-AR112-2024/SICAR112-Eye-Disease-Prediction"
 
 st.markdown(f"[Custom ResNet and CNN Models]({colab_url4})")
