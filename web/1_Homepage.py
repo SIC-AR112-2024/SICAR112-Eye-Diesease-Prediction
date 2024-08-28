@@ -1,7 +1,35 @@
 import streamlit as st
+import PIL as Image
+import streamlit.components.v1 as components
 #home page
 #st.set_up_config(page_icon='web/more_images/Gap_Sem_Logo.png')
-st.image('web/more_images/Logo_Image.png')
+
+def get_window_width():
+    # Custom HTML/JS to get window width
+    component_code = """
+    <script>
+    window.onload = function() {
+        const width = window.innerWidth;
+        window.parent.postMessage({ type: 'windowWidth', width: width }, '*');
+    };
+    </script>
+    """
+    # Create an empty component to run the script
+    components.html(component_code, height=1)
+    
+    # Receive the window width from JavaScript
+    with st.expander("Hidden"):
+        width = st.session_state.get("windowWidth", 800)  # Default width if not set
+    return width
+
+window_width = get_window_width()
+image = Image.open('web/more_images/Logo_Image.png')
+resized_image = image.resize((int(window_width/2), int(window_width/2)))
+
+    
+# Display the resized image
+st.image(resized_image, use_column_width=False)
+#st.image('web/more_images/Logo_Image.png')
 st.title("SIC AR112 2024 Landing Page")
 st.write("Welcome to the home page of our SIC Project - AR112!")
 
