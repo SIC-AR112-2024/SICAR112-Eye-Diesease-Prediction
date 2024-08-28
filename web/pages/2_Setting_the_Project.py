@@ -19,7 +19,7 @@ if response.status_code == 200:
     st.image(image, caption="This is the confusion matrix of our in house trained model.", use_column_width=True)
 else:
     st.error(f"Failed to load image. Status code: {response.status_code}")  # Display an error message
-st.subheader("Identifying Diseases")
+st.subheader("Identifying the Diseases")
 st.write("From some research, we noted the following characteristics in the retinal fundus images that were usually present in the retinal fundus images of the diseases.")
 # Bulleted list with bold words using markdown
 st.markdown("""

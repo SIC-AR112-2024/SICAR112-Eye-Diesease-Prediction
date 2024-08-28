@@ -13,7 +13,8 @@ st.subheader("About Ensemble Model")
 st.write("The ensemble model feeds the input image into multiple models and takes a weighted average of their outputs to obtain an overall diagnosis. This improves accuracy as now multiple models must produce a wrong diagnosis to impact the overall diagnosis.")
 st.subheader("Use of GPUs")
 st.write("For this project, we needed to utilise Graphic Processing Units (GPUs) with sufficient Random Access Memory (RAM) in order to run the model. This imposed a strict computational limitation on our models, most notably on our highly computationally expensive GoogLeNet model, which we had to streamline and simplify drastically in order for our computer to have sufficient GPU RAM to run it. All of our models were trained on an L4 GPU. However, as this GPU costs money, all models except the ensemble models, the ResNet50 and the GoogLeNet Model can be run on the free T4 GPU. This resource limitation limited the number of layers that we could implement in our custom models, which could have affected the efficacy of the custom ResNet18 and GoogLeNet Model. This also affected our decision on what models to put into our ensemble model because the computationally demanding ResNet50 model could not be combined with other models in the ensemble model architecture without taking up too much GPU RAM. However, for evaluation, these expensive computational resources are not required as the model evaluation loop can run sufficiently quickly on the CPU of the computer.")
-st.subheader("Results")
+
+st.subheader("Model Training")
 st.write("Firstly, we tried to analyse the retinal fundus images using a few models. These include the PyTorch pretrained ResNet18, ResNet34 and ResNet50 models, our own custom ResNet18 model, a Convolutional Neural Network model that we built, a GoogLeNet model, and an ensemble model comprising of a combination of the previously mentioned model. We ran the models through the dataset and obtained the following results.")
 # Load image from URL
 url0 = "https://raw.githubusercontent.com/SIC-AR112-2024/SICAR112-Eye-Disease-Prediction/main/Confusion%20Matrix%20Accuracy%20Guarantee/Accuracy%20Results.png"
@@ -26,8 +27,7 @@ if response.status_code == 200:
 else:
     st.error(f"Failed to load image. Status code: {response.status_code}")  # Display an error message
 
-st.subheader("Identifying the diseases")
-
+st.subheader("Results")
 st.write("From the accuracy results, we can see that the resnet50, followed by the resnet34 and finally the resnet18 models were able to identify the retinal fundus images most accurately. However, we also learnt by research that by combining models together, we would be able to generate more accurate predictions. Hence, we experimeted with two different ensemble model architectures, one by combining the resnet34 and the resnet18 models only, and the other by combining the abovementioned two models along with our custom resnet18 model. As seen from the accuracy diagram above, these two ensemble models performed exceptionally well, with the former outperforming the resnet18 model and the latter outperforming the resnet34 model in all diseases. This latter model, named ResNet-AR112, is used along with resnet50 and resnet34 in our prediction model framework below.")
 
 st.subheader("Data Analysis")
