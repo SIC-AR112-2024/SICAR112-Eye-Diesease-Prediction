@@ -4,22 +4,6 @@ import streamlit.components.v1 as components
 #home page
 #st.set_up_config(page_icon='web/more_images/Gap_Sem_Logo.png')
 
-import os
-
-# Define the filename of the Google verification file
-verification_filename = "web/google6d90627c91ed9991.html"
-
-# Check if the file exists in the current directory
-if os.path.exists(verification_filename):
-    # Read the content of the verification file
-    with open(verification_filename, "r") as file:
-        file_content = file.read()
-    
-    # Create a special route to serve the verification file
-    if st.experimental_get_query_params().get("serve_verification"):
-        st.markdown(file_content, unsafe_allow_html=True)
-else:
-    st.error(f"Verification file '{verification_filename}' not found.")
 
 
 
