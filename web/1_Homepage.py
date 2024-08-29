@@ -5,7 +5,10 @@ import streamlit.components.v1 as components
 #st.set_up_config(page_icon='web/more_images/Gap_Sem_Logo.png')
 
 
-
+# Inject Google Search Console meta tag
+st.markdown("""
+<meta name="google-site-verification" content="G-FIkrEPe591qr2kRlkABgnwOPGBrag_wjyjmj4ewGk" />
+""", unsafe_allow_html=True)
 
 
 image = Image.open('web/more_images/Logo_Image.png')
