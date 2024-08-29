@@ -7,7 +7,9 @@ import streamlit.components.v1 as components
 
 # Inject Google Search Console meta tag
 st.markdown("""
-<meta name="google-site-verification" content="G-FIkrEPe591qr2kRlkABgnwOPGBrag_wjyjmj4ewGk" />
+<head>
+    <meta name="google-site-verification" content="G-FIkrEPe591qr2kRlkABgnwOPGBrag_wjyjmj4ewGk" />
+<head>
 """, unsafe_allow_html=True)
 
 
