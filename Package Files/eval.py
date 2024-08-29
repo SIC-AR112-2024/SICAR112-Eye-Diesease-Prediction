@@ -21,7 +21,7 @@ from sklearn.metrics import confusion_matrix
 def hello_world():
     print('hello, I am an imported python file')
 
-def cm_generator(model, dataloader, paths):
+def gen_cm(model, dataloader, paths):
     plt.figure(figsize=(8, 6))
 
     # Move model to CPU
