@@ -7,7 +7,7 @@ import streamlit.components.v1 as components
 import os
 
 # Define the filename of the Google verification file
-verification_filename = "google1234567890abcdef.html"
+verification_filename = "web/google6d90627c91ed9991.html"
 
 # Check if the file exists in the current directory
 if os.path.exists(verification_filename):
