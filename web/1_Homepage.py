@@ -4,13 +4,24 @@ import streamlit.components.v1 as components
 #home page
 #st.set_up_config(page_icon='web/more_images/Gap_Sem_Logo.png')
 
+import os
 
-# Inject Google Search Console meta tag
-st.markdown("""
-<head>
-    <meta name="google-site-verification" content="G-FIkrEPe591qr2kRlkABgnwOPGBrag_wjyjmj4ewGk" />
-<head>
-""", unsafe_allow_html=True)
+# Define the filename of the Google verification file
+verification_filename = "web/google1234567890abcdef.html"
+
+# Check if the file exists in the current directory
+if os.path.exists(verification_filename):
+    # Read the content of the verification file
+    with open(verification_filename, "r") as file:
+        file_content = file.read()
+    
+    # Create a special route to serve the verification file
+    if st.experimental_get_query_params().get("serve_verification"):
+        st.markdown(file_content, unsafe_allow_html=True)
+else:
+    st.error(f"Verification file '{verification_filename}' not found.")
+
+
 
 
 image = Image.open('web/more_images/Logo_Image.png')
