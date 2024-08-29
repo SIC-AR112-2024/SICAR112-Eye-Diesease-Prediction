@@ -5,18 +5,7 @@ import streamlit.components.v1 as components
 #st.set_up_config(page_icon='web/more_images/Gap_Sem_Logo.png')
 
 
-# Function to handle custom routes
-def serve_verification_file():
-    # Read the HTML verification file content
-    with open("google1234567890abcdef.html", "r") as file:
-        file_content = file.read()
 
-    # Display the file content as raw HTML
-    st.components.v1.html(file_content, scrolling=False)
-
-# Main app logic
-if st.sidebar.button("Serve Google Verification File"):
-    serve_verification_file()
 
 
 image = Image.open('web/more_images/Logo_Image.png')
