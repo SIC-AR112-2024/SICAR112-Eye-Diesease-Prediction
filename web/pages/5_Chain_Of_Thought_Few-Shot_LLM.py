@@ -1,18 +1,16 @@
 import streamlit as st
 st.title("Chain of thought few shot Model Page")
 st.markdown('''Here, we utilise a :red[Chain-of-Thought (CoT)] prompting framework that allows us to make our LLM reason through its response before returning an output.\
-As outlined in the landmark paper on CoT prompting ([Wei et. al., Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/pdf/2201.11903)), CoT prompting allows LLMs to looks at a few examples (i.e. few-shot prompting) and the thought process behind them. The paper studies several LLMs on several different models such as PaLM and LaMDA, as well as GPT-3.\
+As outlined in the landmark paper on CoT prompting ([Wei et. al., Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/pdf/2201.11903)), CoT prompting allows LLMs to look at a few examples (i.e. few-shot prompting) and the thought process behind them. The paper studies several LLMs on several different models such as PaLM and LaMDA, as well as GPT-3.\
 In the paper above, CoT prompting serves to:
-  - Diagnose (pun intended) and debug any visual hallucinations by asking the model to describe the image.
-  - Leverage the autoregressive nature of LLMs like GPT-4o to look at both the image context and the generated text description of the image before generating its own diagnosis
-  - Provide us with a means to seed possible areas for the models to look at (e.g. provide examples 
-looking out for certain characteristics/telltale features of certain diseases)
+  - Debug any visual hallucinations by asking the model to describe the image
+  - Provide examples of certain characteristics/telltale features of the diseases for the LLM to look out for
 
-The CoT prompts do show two major downsides, namely:
-    - A lot of tokens are passed into the LLM every prompt, thereby increasing the likelihood of us overcapping our token limit
-    - More complex (my brain hurts)
-            
-CoT prompting was used as follows:
+However, CoT prompting do show two major downsides compared to zero-shot prompting, namely:
+  - More tokens are passed into the LLM, hence we reached the token limit of our API key fairly quickly (due to this we were unable to gather enough test results to plot a full confusion matrix)
+  - More complex to implement
+
+We implemented CoT prompting as such:
 ***''')
 
 message = [
