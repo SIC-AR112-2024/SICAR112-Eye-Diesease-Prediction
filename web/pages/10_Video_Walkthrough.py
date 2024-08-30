@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Embed a video from a URL (e.g., YouTube)
-video_url = "https://drive.google.com/file/d/1s5AbPg4iZJh8GhAEPmy1Fa7VGVeWSVWn/view?usp=sharing"
+video_url = f"https://drive.google.com/uc?export=download&id=1s5AbPg4iZJh8GhAEPmy1Fa7VGVeWSVWn"
 
 
 st.header('Video Walkthrough')
