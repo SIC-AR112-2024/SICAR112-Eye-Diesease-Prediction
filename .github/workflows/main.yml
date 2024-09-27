@@ -32,3 +32,4 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Pass the secret as an environment variable
         run: nohup streamlit run web/pages/6_Applet.py & # Replace with the path to your Python script
         
+        
