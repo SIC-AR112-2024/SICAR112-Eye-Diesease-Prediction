@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v3
         with:
           python-version: '3.11'
 
@@ -25,6 +25,14 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-  
+      - name: Run Python Chatbot Script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Pass the secret as an environment variable
+        run: python web/pages/7_Chatbot.py  
+    
+      - name: Run Python Applet Script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Pass the secret as an environment variable
+        run: python web/pages/6_Applet.py  
         
         
