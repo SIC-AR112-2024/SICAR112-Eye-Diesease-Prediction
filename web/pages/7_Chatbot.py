@@ -7,7 +7,7 @@ import google.generativeai as genai
 from tenacity import (retry, stop_after_attempt, wait_random_exponential)
 import os
 
-API_KEY = os.getenv("OPENAI_API_KEY")
+API_KEY = os.environ["OPENAI_API_KEY"]
 if API_KEY is not None:
     print("Secret Key Retrieved Successfully")
     openai.api_key = API_KEY
