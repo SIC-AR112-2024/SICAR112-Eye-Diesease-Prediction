@@ -22,18 +22,18 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-          - name: Run Python Chatbot Script
-          env:
-            OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Pass the secret as an environment variable
-          run: |
-            echo "Running Chatbot Script"
-            python web/pages/7_Chatbot.py  # Ensure this path is correct
-  
+      - name: Run Python Chatbot Script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Pass the secret as an environment variable
+        run: |
+          echo "Running Chatbot Script"
+          python web/pages/7_Chatbot.py  
+    
       - name: Run Python Applet Script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Pass the secret as an environment variable
         run: |
           echo "Running Applet Script"
-          python web/pages/6_Applet.py  # Ensure this path is correct
-
+          python web/pages/6_Applet.py  
+        
         
