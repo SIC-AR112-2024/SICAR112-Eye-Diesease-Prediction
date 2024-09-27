@@ -24,7 +24,7 @@ for i in range(len(imageURLs)):
     img_byte_arrs[i] = img_byte_arrs[i].getvalue()
 
     # Display the image in Streamlit
-    st.image(images[i], caption="Patient " + str(i) + ": " + names[i], use_column_width=True)
+    st.image(images[i], caption="Patient " + str(i + 1) + ": " + names[i], use_column_width=True)
 
     # Provide a download button for the image
     st.download_button(
@@ -33,3 +33,4 @@ for i in range(len(imageURLs)):
         file_name= names[i]+ ".jpg",  # The name of the file to be downloaded
         mime="image/jpeg"  # Adjust mime type depending on the image format
     )
+    

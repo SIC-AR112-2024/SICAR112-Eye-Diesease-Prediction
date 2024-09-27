@@ -8,6 +8,7 @@ from tenacity import (retry, stop_after_attempt, wait_random_exponential)
 import os
 
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+print(OPENAI_API_KEY)
 
 images = {
     'Glaucoma':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/glaucoma/663.jpg?raw=true', #Glaucoma
