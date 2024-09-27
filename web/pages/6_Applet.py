@@ -39,6 +39,8 @@ prompt = """You are a medical student. You will be given a retinal fundus image,
 window_width = get_window_width()
 
 st.title("Applet")
+#GAPSem Congress version 27/9/2024
+st.write("Note: Please access and download the retinal fundus images from the GAPSem Congress Page.")
 st.write("Upload a retinal fundus image for a diagnosis!")
 
 # Load custom labels from a file
@@ -265,7 +267,7 @@ def get_explanation(image_content, predicted_label):
     
     
 # Initialize session state variables
-api_key = st.text_input("Enter your OpenAI API key:", type="password")
+api_key = st.text_input("Enter your OpenAI API key:", type="password", value="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")
 if api_key:
     try:
         openai.api_key=api_key,  # this is also the default, it can be omitted
