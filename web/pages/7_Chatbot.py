@@ -10,6 +10,7 @@ import os
 API_KEY = os.getenv("OPENAI_API_KEY")
 if API_KEY is not None:
     print("Secret Key Retrieved Successfully")
+    openai.api_key = API_KEY
 else:
     print("Failed to retrieve the Secret Key")
 
