@@ -7,8 +7,8 @@ import google.generativeai as genai
 from tenacity import (retry, stop_after_attempt, wait_random_exponential)
 import os
 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-if OPENAI_API_KEY:
+API_KEY = os.getenv("OPENAI_API_KEY")
+if API_KEY:
     print("Secret Key Retrieved Successfully")
 else:
     print("Failed to retrieve the Secret Key")
@@ -92,7 +92,7 @@ for i in message:
 
 if LLM_mode == '0-shot':
     if st.button('Generate GPT-4o output (0-shot):'):
-        client = openai.OpenAI(api_key=OPENAI_API_KEY)
+        client = openai.OpenAI(api_key=API_KEY)
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=message,
@@ -103,7 +103,7 @@ if LLM_mode == '0-shot':
             st.write_stream(response)
 if LLM_mode == 'Few-shot':
     if st.button('Generate GPT-4o output (0-shot):'):
-        client = openai.OpenAI(api_key=OPENAI_API_KEY)
+        client = openai.OpenAI(api_key=API_KEY)
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=message,
