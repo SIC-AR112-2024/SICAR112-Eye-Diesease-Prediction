@@ -7,7 +7,11 @@ import google.generativeai as genai
 from tenacity import (retry, stop_after_attempt, wait_random_exponential)
 import os
 
-#OPENAI_API_KEY = os.getenv('OPENAI_API_KEY') Doesn't work
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+if OPENAI_API_KEY:
+    print("Secret Key Retrieved Successfully")
+else:
+    print("Failed to retrieve the Secret Key")
 
 
 images = {
@@ -53,7 +57,7 @@ st.markdown("""Below, we have the ability to query GPT-4o using 0-shot and few-s
 For more information on how prompting helps LLMs, visit the corresponding pages in the sidebar.""")
 ailment = st.selectbox("Pick a disease to diagnose:", ('Glaucoma', 'Diabetic Retinopathy', 'Cataract'))
 LLM_mode = st.selectbox("Pick a prompting method:", ('0-shot', 'Few-shot'))
-API_Key = st.text_input("API Key here:", placeholder="Type API Key (Ask us for ours!)", type="password", value="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")
+#API_Key = st.text_input("API Key here:", placeholder="Type API Key (Ask us for ours!)", type="password", value=OPENAI_API_KEY)
 
 if LLM_mode == '0-shot':
     message = [
@@ -88,7 +92,7 @@ for i in message:
 
 if LLM_mode == '0-shot':
     if st.button('Generate GPT-4o output (0-shot):'):
-        client = openai.OpenAI(api_key=API_Key)
+        client = openai.OpenAI(api_key=OPENAI_API_KEY)
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=message,
@@ -99,7 +103,7 @@ if LLM_mode == '0-shot':
             st.write_stream(response)
 if LLM_mode == 'Few-shot':
     if st.button('Generate GPT-4o output (0-shot):'):
-        client = openai.OpenAI(api_key=API_Key)
+        client = openai.OpenAI(api_key=OPENAI_API_KEY)
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=message,
