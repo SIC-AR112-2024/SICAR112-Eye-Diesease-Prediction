@@ -8,6 +8,7 @@ st.write('As part of the GAPSem Congress 2024, we have come up with a mini activ
 imageURLs = ['dataset/cataract/4.jpg', 'dataset/normal/6.jpg', 'dataset/diabetic_retinopathy/17.jpg', 'dataset/diabetic_retinopathy/49.jpg', 'dataset/glaucoma/9.jpg', 'dataset/cataract/110.jpg', 'dataset/normal/12.jpg', 'dataset/glaucoma/46.jpg']
 names = ['Adam', 'Bob', 'Carlos', 'Donnie', 'Edgar', 'Freddy', 'Gupta', 'Hafiz']
 images = [None] * 8
+resized_images = [None] * 8
 img_byte_arrs = [None] * 8
 
 
@@ -22,9 +23,17 @@ for i in range(len(imageURLs)):
     img_byte_arrs[i] = io.BytesIO()
     images[i].save(img_byte_arrs[i], format='JPEG')  # You can change format if needed (PNG, etc.)
     img_byte_arrs[i] = img_byte_arrs[i].getvalue()
+    
+    # Assuming 'image' is already opened
+    width, height = images[i].size
+    new_width = 200
+    new_height = int(200 * height / width)  # Calculate new height to maintain aspect ratio
 
-    # Display the image in Streamlit
-    st.image(images[i], caption="Patient " + str(i + 1) + ": " + names[i], use_column_width=True)
+    # Resize with a resampling filter (optional)
+    resized_images[i] = images[i].resize((new_width, new_height), Image.Resampling.LANCZOS)
+    
+    # Display the resized image
+    st.image(resized_images[i], caption="Patient " + str(i + 1) + ": " + names[i], use_column_width=False)
 
     # Provide a download button for the image
     st.download_button(
