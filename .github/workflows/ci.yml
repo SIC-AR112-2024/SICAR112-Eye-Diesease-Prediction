@@ -25,10 +25,10 @@ jobs:
       - name: Run Python Chatbot Script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Pass the secret as an environment variable
-        run: python web/pages/7_Chatbot.py  # Replace with the path to your Python script
+        run: streamlit run web/pages/7_Chatbot.py  # Replace with the path to your Python script
     
       - name: Run Python Applet Script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Pass the secret as an environment variable
-        run: python web/pages/6_Applet.py  # Replace with the path to your Python script
+        run: streamlit run web/pages/6_Applet.py  # Replace with the path to your Python script
         
