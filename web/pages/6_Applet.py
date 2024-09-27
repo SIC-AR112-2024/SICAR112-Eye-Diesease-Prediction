@@ -14,7 +14,7 @@ import base64
 from tenacity import retry, stop_after_attempt, wait_random_exponential
 from collections import Counter
 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+#OPENAI_API_KEY = os.getenv('OPENAI_API_KEY') Doesn't work
 
 # Create a custom component that gets the window width
 def get_window_width():
@@ -269,7 +269,7 @@ def get_explanation(image_content, predicted_label):
     
     
 # Initialize session state variables
-api_key = st.text_input("Enter your OpenAI API key:", type="password", value=OPENAI_API_KEY)
+api_key = st.text_input("Enter your OpenAI API key:", type="password", value="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")
 if api_key:
     try:
         openai.api_key=api_key,  # this is also the default, it can be omitted

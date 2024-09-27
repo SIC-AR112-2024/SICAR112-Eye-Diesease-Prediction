@@ -7,8 +7,8 @@ import google.generativeai as genai
 from tenacity import (retry, stop_after_attempt, wait_random_exponential)
 import os
 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-print(OPENAI_API_KEY)
+#OPENAI_API_KEY = os.getenv('OPENAI_API_KEY') Doesn't work
+
 
 images = {
     'Glaucoma':'https://github.com/SIC-AR112-2024/SICAR112-Eye-Diesease-Prediction/blob/main/dataset/glaucoma/663.jpg?raw=true', #Glaucoma
@@ -53,7 +53,7 @@ st.markdown("""Below, we have the ability to query GPT-4o using 0-shot and few-s
 For more information on how prompting helps LLMs, visit the corresponding pages in the sidebar.""")
 ailment = st.selectbox("Pick a disease to diagnose:", ('Glaucoma', 'Diabetic Retinopathy', 'Cataract'))
 LLM_mode = st.selectbox("Pick a prompting method:", ('0-shot', 'Few-shot'))
-API_Key = st.text_input("API Key here:", placeholder="Type API Key (Ask us for ours!)", type="password", value=OPENAI_API_KEY)
+API_Key = st.text_input("API Key here:", placeholder="Type API Key (Ask us for ours!)", type="password", value="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")
 
 if LLM_mode == '0-shot':
     message = [
