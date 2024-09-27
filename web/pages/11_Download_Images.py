@@ -5,7 +5,7 @@ import io
 st.title('Image Store')
 st.write('As part of the GAPSem Congress 2024, we have come up with a mini activity! We have taken some images from our database and put them here for you to download them and run through our Applet. Help each patient receive appropriate treatment by accurately diagnosing each image. Good luck ;).')
 
-imageURLs = ['dataset/cataract/4.jpg', 'dataset/normal/6.jpg', 'dataset/diabetic_retinopathy/17.jpg', 'dataset/diabetic_retinopathy/49.jpg', 'dataset/glaucoma/9.jpg', 'dataset/cataract/110.jpg', 'dataset/normal/12.jpg', 'dataset/glaucoma/46.jpg']
+imageURLs = ['dataset/cataract/4.jpg', 'dataset/normal/6.jpg', 'dataset/diabetic_retinopathy/17.jpg', 'dataset/diabetic_retinopathy/50.jpg', 'dataset/glaucoma/9.jpg', 'dataset/cataract/110.jpg', 'dataset/normal/12.jpg', 'dataset/glaucoma/46.jpg']
 names = ['Adam', 'Bob', 'Carlos', 'Donnie', 'Edgar', 'Freddy', 'Gupta', 'Hafiz']
 images = [None] * 8
 resized_images = [None] * 8
