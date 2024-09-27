@@ -40,7 +40,7 @@ prompt = """You are a medical student. You will be given a retinal fundus image,
 # Display the window width
 window_width = get_window_width()
 
-st.title("Applet")
+st.title("Diagnosis Prediction Applet")
 #GAPSem Congress version 27/9/2024
 st.write("Note: Please access and download the retinal fundus images from the GAPSem Congress Page.")
 st.write("Upload a retinal fundus image for a diagnosis!")
@@ -273,7 +273,7 @@ def get_explanation(image_content, predicted_label):
 if api_key:
     try:
         openai.api_key=api_key,  # this is also the default, it can be omitted
-        st.success("API key successfully set.")
+        #st.success("API key successfully set.")
     except Exception as e:
         st.error(f"An error occurred: {e}")
 
