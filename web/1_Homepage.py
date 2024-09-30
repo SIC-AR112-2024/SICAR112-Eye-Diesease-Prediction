@@ -16,6 +16,7 @@ resized_image = image.resize((int(image.width/3.5), int(image.height/3.5)))
 st.image(resized_image, use_column_width=False)
 #st.image('web/more_images/Logo_Image.png')
 st.title("Analysing and Building Risk Prediction Frameworks on Retinal Fundus Images")
+st.write("By: Lee Zhe Yu, Nathan (26Y 4E), Chew Yee (26Y 4E) and Swaagat Bikash Saikia (26Y 4E)")
 st.write("Welcome to the home page of our SIC Project - AR112!")
 
 st.subheader("Introduction")
